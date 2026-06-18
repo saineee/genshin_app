@@ -15,14 +15,14 @@ def get_db_connection():
 
 #Inserts data into the database
 def insert_character(uid, avatar_id, weapon_refinement, weapon_name, name, constellation_lvl, level, hp,
-                     atk, defense, em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst):
+                     atk, defense, em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst, friendship_lvl):
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute("INSERT INTO characters (uid, avatar_id, weapon_refinement, weapon_name, name, constellation_lvl, level, hp,"
-                   " atk, def, em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst)"
-                   "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                   " atk, def, em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst, friendship_lvl)"
+                   "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                    (uid, avatar_id, weapon_refinement, weapon_name, name, constellation_lvl, level, hp,
-                    atk, defense, em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst,))
+                    atk, defense, em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst, friendship_lvl))
     conn.commit()
     conn.close()
 
@@ -51,6 +51,7 @@ if __name__ == "__main__":
             talent_skill += character['proudSkillExtraLevelMap'].get('4232', 0)
             talent_burst += character['proudSkillExtraLevelMap'].get('4239', 0)
 
+        friendship_lvl = character['fetterInfo']['expLevel']
         weapon_refinement = list(weapon['weapon']['affixMap'].values())[0] + 1
         weapon_name = WEAPON_NAMES.get(weapon['itemId'], "Unknown")
         avatar_id =  character['avatarId']
@@ -65,4 +66,4 @@ if __name__ == "__main__":
         em = int(character['fightPropMap'][STAT_KEYS["em"]])
         er = int(character['fightPropMap'][STAT_KEYS["er"]] * 100)
         insert_character(uid, avatar_id, weapon_refinement, weapon_name, name, constellation_lvl, level, hp, atk, defense,
-                         em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst)
+                         em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst, friendship_lvl)
