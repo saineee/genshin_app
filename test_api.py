@@ -2,6 +2,7 @@
 from data.stat_keys import STAT_KEYS
 from data.avatar_names import AVATAR_NAMES
 from data.weapon_names import WEAPON_NAMES
+from artifact_parser import parse_artifacts
 import psycopg2
 import requests
 
@@ -16,15 +17,31 @@ def get_db_connection():
 #Inserts data into the database
 def insert_character(uid, avatar_id, weapon_refinement, weapon_name, name, constellation_lvl, level, hp,
                      atk, defense, em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst, friendship_lvl):
+    #connect to database
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute("INSERT INTO characters (uid, avatar_id, weapon_refinement, weapon_name, name, constellation_lvl, level, hp,"
                    " atk, def, em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst, friendship_lvl)"
-                   "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                   "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING id",
                    (uid, avatar_id, weapon_refinement, weapon_name, name, constellation_lvl, level, hp,
                     atk, defense, em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst, friendship_lvl))
+    character_id = cursor.fetchone()[0]
     conn.commit()
     conn.close()
+    return character_id
+
+def insert_artifact(artifact_data, character_id):
+    #connect to database
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO artifacts (character_id, slot, set_name, main_stat, main_stat_val, sub1, sub1_val"
+                         ", sub2, sub2_val, sub3, sub3_val, sub4, sub4_val) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,"
+                         "%s, %s)", (character_id, artifact_data['slot'], artifact_data['set_name'], artifact_data['main_stat'],
+                                     artifact_data['main_stat_val'], artifact_data['sub1'], artifact_data['sub1_val'], artifact_data['sub2'],
+                                     artifact_data['sub2_val'], artifact_data['sub3'], artifact_data['sub3_val'], artifact_data['sub4'], artifact_data['sub4_val']))
+    conn.commit()
+    conn.close()
+
 
 
 if __name__ == "__main__":
@@ -65,5 +82,12 @@ if __name__ == "__main__":
         crit_dmg = round(character['fightPropMap'][STAT_KEYS["crit_dmg"]] * 100, 1)
         em = int(character['fightPropMap'][STAT_KEYS["em"]])
         er = int(character['fightPropMap'][STAT_KEYS["er"]] * 100)
-        insert_character(uid, avatar_id, weapon_refinement, weapon_name, name, constellation_lvl, level, hp, atk, defense,
+
+        #call insert_character function and store character_id so we know who has the artifact
+        character_id = insert_character(uid, avatar_id, weapon_refinement, weapon_name, name, constellation_lvl, level, hp, atk, defense,
                          em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst, friendship_lvl)
+
+        # call parse_artifact function to store EACH artifact for current character
+        artifact_data = parse_artifacts(character)
+        for artifact in artifact_data:
+            insert_artifact(artifact, character_id)
