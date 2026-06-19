@@ -17,37 +17,54 @@ def get_db_connection():
 #Inserts data into the database
 def insert_character(uid, avatar_id, weapon_refinement, weapon_name, name, constellation_lvl, level, hp,
                      atk, defense, em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst, friendship_lvl):
-    #connect to database
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("INSERT INTO characters (uid, avatar_id, weapon_refinement, weapon_name, name, constellation_lvl, level, hp,"
-                   " atk, def, em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst, friendship_lvl)"
-                   "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING id",
-                   (uid, avatar_id, weapon_refinement, weapon_name, name, constellation_lvl, level, hp,
-                    atk, defense, em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst, friendship_lvl))
-    character_id = cursor.fetchone()[0]
-    conn.commit()
-    conn.close()
-    return character_id
+    try:
+        #connect to database
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO characters (uid, avatar_id, weapon_refinement, weapon_name, name, constellation_lvl, level, hp,"
+                    " atk, def, em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst, friendship_lvl)"
+                    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING id",
+                    (uid, avatar_id, weapon_refinement, weapon_name, name, constellation_lvl, level, hp,
+                        atk, defense, em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst, friendship_lvl))
+        character_id = cursor.fetchone()[0]
+        conn.commit()
+        return character_id
+    except Exception as e:
+        conn.rollback()
+        print(f"Error inserting character: {e}")
+        return None
+    finally:
+        conn.close()
+
 
 def insert_artifact(artifact_data, character_id):
-    #connect to database
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("INSERT INTO artifacts (character_id, slot, set_name, main_stat, main_stat_val, sub1, sub1_val"
-                         ", sub2, sub2_val, sub3, sub3_val, sub4, sub4_val) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,"
-                         "%s, %s)", (character_id, artifact_data['slot'], artifact_data['set_name'], artifact_data['main_stat'],
-                                     artifact_data['main_stat_val'], artifact_data['sub1'], artifact_data['sub1_val'], artifact_data['sub2'],
-                                     artifact_data['sub2_val'], artifact_data['sub3'], artifact_data['sub3_val'], artifact_data['sub4'], artifact_data['sub4_val']))
-    conn.commit()
-    conn.close()
+    try:
+        #connect to database
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO artifacts (character_id, slot, set_name, main_stat, main_stat_val, sub1, sub1_val"
+                            ", sub2, sub2_val, sub3, sub3_val, sub4, sub4_val) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,"
+                            "%s, %s)", (character_id, artifact_data['slot'], artifact_data['set_name'], artifact_data['main_stat'],
+                                        artifact_data['main_stat_val'], artifact_data['sub1'], artifact_data['sub1_val'], artifact_data['sub2'],
+                                        artifact_data['sub2_val'], artifact_data['sub3'], artifact_data['sub3_val'], artifact_data['sub4'], artifact_data['sub4_val']))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        print(f"Error inserting artifact: {e}")
+        return None
+    finally:
+        conn.close()
 
 
 
 if __name__ == "__main__":
-    #API call
-    response = requests.get(url)
-    data = response.json()
+    try:
+        #API call
+        response = requests.get(url, timeout=10)
+        data = response.json()
+    except Exception as e:
+        print(f"Error fetching data from enka.network: {e}")
+        exit()
 
     #Calls insert_character function with all the data from each character
     characters = data['avatarInfoList']
