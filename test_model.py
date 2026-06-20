@@ -1,7 +1,10 @@
-from models import Character
+from models import Character, Artifact
 from db import Session
 
 session = Session()
-keqing = Character(uid = 608344004, avatar_id = 11, level = 100)
-session.add(keqing)
-session.commit()
+sandsKeqing = Artifact(character_id = 555, slot = "sands", set_name = "Thundering Fury")
+try:
+    session.add(sandsKeqing)
+    session.commit()
+except Exception as e:
+    print(f"Error inserting artifact: {e}")

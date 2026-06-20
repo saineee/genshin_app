@@ -1,7 +1,7 @@
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from db import Base
 
-#Character class, connects to the character table in postgre
+#Define Character class, connects to the character table in postgre
 class Character(Base):
     __tablename__ = "characters"
 
@@ -25,3 +25,21 @@ class Character(Base):
     talent_burst = Column(Integer)
     friendship_lvl = Column(Integer)
 
+#Define artifact class, connects to the artifact table in postgre
+class Artifact(Base):
+    __tablename__ = "artifacts"
+
+    id = Column(Integer, primary_key=True)
+    character_id = Column(Integer, ForeignKey("characters.id"))
+    slot = Column(String)
+    set_name = Column(String)
+    main_stat = Column(String)
+    main_stat_val = Column(Float)
+    sub1 = Column(String)
+    sub1_val = Column(Float)
+    sub2 = Column(String)
+    sub2_val = Column(Float)
+    sub3 = Column(String)
+    sub3_val = Column(Float)
+    sub4 = Column(String)
+    sub4_val = Column(Float)
