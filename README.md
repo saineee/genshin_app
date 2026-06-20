@@ -30,23 +30,17 @@ A personal Genshin Impact character build tracker that pulls live data from the 
 - Pandas (coming soon)
 
 ## Project Structure
+```
 genshin_app/
-
-├── test_api.py          # Main pipeline - fetches API data and inserts to DB
-
-├── artifact_parser.py   # Parses artifact data from API response
-
+├── test_api.py          # Main pipeline
+├── artifact_parser.py   # Parses artifact data
 └── data/
-
-├── avatar_names.py  # Avatar ID → character name lookup
-
-├── weapon_names.py  # Weapon ID → weapon name lookup
-
-├── artifact_sets.py # Set ID → artifact set name lookup
-
-├── stat_keys.py     # Stat code → fightPropMap key lookup
-
-└── stat_names.py    # Stat prop ID → readable name lookup
+    ├── avatar_names.py  # Avatar ID → character name lookup
+    ├── weapon_names.py  # Weapon ID → weapon name lookup
+    ├── artifact_sets.py # Set ID → artifact set name lookup
+    ├── stat_keys.py     # Stat code → fightPropMap key lookup
+    └── stat_names.py    # Stat prop ID → readable name lookup
+```
 
 ## Data Source
 Live character data is pulled from the [enka.network](https://enka.network) API.

@@ -1,4 +1,5 @@
 #Standard imports
+from db import engine
 from data.stat_keys import STAT_KEYS
 from data.avatar_names import AVATAR_NAMES
 from data.weapon_names import WEAPON_NAMES
@@ -9,10 +10,6 @@ import requests
 #Sets player's UID and the enka network url we're doing API calls from
 uid = "608344004"
 url = f"https://enka.network/api/uid/{uid}/"
-
-#Establish a connection with POSTGRESQL database
-def get_db_connection():
-    return psycopg2.connect(dbname="genshindb", user="paul", password="7285", host="127.0.0.1",)
 
 #Inserts data into the database
 def insert_character(uid, avatar_id, weapon_refinement, weapon_name, name, constellation_lvl, level, hp,
