@@ -18,6 +18,7 @@ A personal Genshin Impact character build tracker that pulls live data from the 
 - Artifact pool — stores all artifacts across characters
 - Pandas-powered artifact optimizer for maximum DPS
 - DPS / damage calculator
+- Card-based UI styled with Tailwind CSS
 - Support for multiple UIDs
 - Live hosting via AWS
 
@@ -26,13 +27,15 @@ A personal Genshin Impact character build tracker that pulls live data from the 
 - PostgreSQL
 - psycopg2
 - Flask (coming soon)
-- SQLAlchemy (coming soon)
+- SQLAlchemy
+- HTML/Jinja2 templating (coming soon)
+- Tailwind CSS (coming soon)
 - Pandas (coming soon)
 
 ## Project Structure
 ```
 genshin_app/
-├── test_api.py          # Main pipeline
+├── sync.py          # Main pipeline
 ├── artifact_parser.py   # Parses artifact data
 └── data/
     ├── avatar_names.py  # Avatar ID → character name lookup
