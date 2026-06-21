@@ -6,6 +6,7 @@ from data.avatar_names import AVATAR_NAMES
 from data.weapon_names import WEAPON_NAMES
 from artifact_parser import parse_artifacts
 import requests
+from requests.exceptions import Timeout, ConnectionError, HTTPError
 
 #Sets player's UID and the enka network url we're doing API calls from
 uid = "608344004"
@@ -46,9 +47,16 @@ if __name__ == "__main__":
     try:
         #API call
         response = requests.get(url, timeout=10)
+        response.raise_for_status()
         data = response.json()
-    except Exception as e:
-        print(f"Error fetching data from enka.network: {e}")
+    except Timeout as t:
+        print(f"enka.network took too long to respond: {t}")
+        exit()
+    except ConnectionError as c:
+        print(f"Error connecting to enka.network: {c}")
+        exit()
+    except HTTPError as h:
+        print(f"enka.network responded with an error: {h}")
         exit()
 
     #Create session object
