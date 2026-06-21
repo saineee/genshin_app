@@ -6,6 +6,7 @@ from data.avatar_names import AVATAR_NAMES
 from data.weapon_names import WEAPON_NAMES
 from artifact_parser import parse_artifacts
 import requests
+from sqlalchemy.exc import IntegrityError
 from requests.exceptions import Timeout, ConnectionError, HTTPError
 
 #Sets player's UID and the enka network url we're doing API calls from
@@ -24,6 +25,11 @@ def insert_character(session, uid, avatar_id, weapon_refinement, weapon_name,
         session.add(character)
         session.commit()
         return character.id
+    #check if character has already been inserted in database with same uid
+    except IntegrityError as e:
+        session.rollback()
+        print(f"Duplicate character detected: {e}:")
+        return None
     except Exception as e:
         session.rollback()
         print(f"Error inserting character: {e}")
@@ -38,6 +44,11 @@ def insert_artifact(session, artifact, character_id):
         session.add(new_artifact)
         session.commit()
         return new_artifact.id
+    #check if the artifact has already been inserted for the same character
+    except IntegrityError as e:
+        session.rollback()
+        print(f"Duplicate artifact detected for same character: {e}:")
+        return None
     except Exception as e:
         session.rollback()
         print(f"Error inserting artifact: {e}")
@@ -104,7 +115,10 @@ if __name__ == "__main__":
         character_id = insert_character(session, uid, avatar_id, weapon_refinement, weapon_name, name, constellation_lvl, level, hp, atk, defense,
                          em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst, friendship_lvl)
 
-        # call parse_artifact function to store EACH artifact for current character
+        # call parse_artifact function to store EACH artifact for current character, skip/continue if already in DB
+        if character_id is None:
+            print(f"Character: {name} is being skipped because it is already in the database.")
+            continue
         artifact_data = parse_artifacts(character)
         for artifact in artifact_data:
             insert_artifact(session, artifact, character_id)
