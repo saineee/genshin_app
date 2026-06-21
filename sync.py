@@ -44,9 +44,13 @@ def insert_artifact(session, artifact, character_id):
         return None
 
 if __name__ == "__main__":
+
+    #enka.network requires a custom User-agent header and enforces rate limits on UID requests
+    #if you send one without a custom UA or hit the endpoint too frequently, you can start receiving timeouts/429 errors
+    headers = {"User-Agent": "genshin-build-tracker/1.0 (project)"}
     try:
         #API call
-        response = requests.get(url, timeout=10)
+        response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
         data = response.json()
     except Timeout as t:
