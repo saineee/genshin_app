@@ -52,6 +52,9 @@ if __name__ == "__main__":
         print(f"Error fetching data from enka.network: {e}")
         exit()
 
+    #Create session object
+    session = Session()
+
     #Calls insert_character function with all the data from each character
     characters = data['avatarInfoList']
 
@@ -87,10 +90,10 @@ if __name__ == "__main__":
         er = int(character['fightPropMap'][STAT_KEYS["er"]] * 100)
 
         #call insert_character function and store character_id so we know who has the artifact
-        character_id = insert_character(uid, avatar_id, weapon_refinement, weapon_name, name, constellation_lvl, level, hp, atk, defense,
+        character_id = insert_character(session, uid, avatar_id, weapon_refinement, weapon_name, name, constellation_lvl, level, hp, atk, defense,
                          em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst, friendship_lvl)
 
         # call parse_artifact function to store EACH artifact for current character
         artifact_data = parse_artifacts(character)
         for artifact in artifact_data:
-            insert_artifact(artifact, character_id)
+            insert_artifact(session, artifact, character_id)
