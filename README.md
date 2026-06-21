@@ -25,7 +25,7 @@ A personal Genshin Impact character build tracker that pulls live data from the 
 ## Tech Stack
 - Python
 - PostgreSQL
-- psycopg2
+- psycopg2 (via SQLAlchemy)
 - Flask (coming soon)
 - SQLAlchemy
 - HTML/Jinja2 templating (coming soon)
