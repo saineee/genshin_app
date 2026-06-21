@@ -37,22 +37,11 @@ def insert_character(session, uid, avatar_id, weapon_refinement, weapon_name,
 
 #Insert artifact data into DB
 def insert_artifact(session, artifact, character_id):
-    try:
+
         new_artifact = Artifact(character_id = character_id, slot = artifact['slot'], set_name = artifact['set_name'], main_stat = artifact['main_stat'], main_stat_val = artifact['main_stat_val'],
                                 sub1 = artifact['sub1'], sub1_val = artifact['sub1_val'], sub2 = artifact['sub2'], sub2_val = artifact['sub2_val'], sub3 = artifact['sub3'], sub3_val = artifact['sub3_val'],
                                 sub4 = artifact['sub4'], sub4_val = artifact['sub4_val'])
         session.add(new_artifact)
-        session.commit()
-        return new_artifact.id
-    #check if the artifact has already been inserted for the same character
-    except IntegrityError as e:
-        session.rollback()
-        print(f"Duplicate artifact detected for same character: {e}:")
-        return None
-    except Exception as e:
-        session.rollback()
-        print(f"Error inserting artifact: {e}")
-        return None
 
 if __name__ == "__main__":
 
@@ -122,3 +111,11 @@ if __name__ == "__main__":
         artifact_data = parse_artifacts(character)
         for artifact in artifact_data:
             insert_artifact(session, artifact, character_id)
+        try:
+            session.commit()
+        except IntegrityError as e:
+            session.rollback()
+            print(f"Duplicate artifact detected for same character: {e}:")
+        except Exception as e:
+            session.rollback()
+            print(f"Error inserting artifact: {e}")
