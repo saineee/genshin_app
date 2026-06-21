@@ -1,10 +1,12 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from db import Base
+from sqlalchemy.orm import relationship
 
 #Define Character class, connects to the character table in postgre
 class Character(Base):
     __tablename__ = "characters"
 
+    artifacts = relationship("Artifact")
     id = Column(Integer, primary_key=True)
     uid = Column(Integer)
     avatar_id = Column(Integer)
