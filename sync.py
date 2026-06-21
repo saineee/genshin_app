@@ -5,7 +5,6 @@ from data.stat_keys import STAT_KEYS
 from data.avatar_names import AVATAR_NAMES
 from data.weapon_names import WEAPON_NAMES
 from artifact_parser import parse_artifacts
-import psycopg2
 import requests
 
 #Sets player's UID and the enka network url we're doing API calls from
