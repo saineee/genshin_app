@@ -2,15 +2,11 @@
 from db import Session
 from models import Character, Artifact
 from data.stat_keys import STAT_KEYS
-from data.avatar_names import AVATAR_NAMES
-from data.weapon_names import WEAPON_NAMES
 from artifact_parser import parse_artifacts
 import requests
 from sqlalchemy.exc import IntegrityError
 from requests.exceptions import Timeout, ConnectionError, HTTPError
-import json
-with open("data/character_skills.json", "r") as f:
-    SKILL_REFERENCE = json.load(f)
+from data.game_data import SKILL_REFERENCE, LOC_DATA
 
 #Sets player's UID and the enka network url we're doing API calls from
 uid = "608344004"
@@ -100,6 +96,7 @@ if __name__ == "__main__":
         for item in character['equipList']:
             if item['flat']['itemType'] == 'ITEM_WEAPON':
                 weapon = item
+
         #talent values
         talent_values = list(character['skillLevelMap'].values())
         talent_na = talent_values[0]
@@ -115,8 +112,11 @@ if __name__ == "__main__":
 
         friendship_lvl = character['fetterInfo']['expLevel']
         weapon_refinement = list(weapon['weapon']['affixMap'].values())[0] + 1
-        weapon_name = WEAPON_NAMES.get(weapon['itemId'], "Unknown")
-        name = AVATAR_NAMES.get(avatar_id, "Unknown")
+        weapon_name = LOC_DATA.get(weapon['flat']['nameTextMapHash'], "Unknown")
+
+        name_hash = SKILL_REFERENCE.get(str(avatar_id), {}).get("NameTextMapHash")
+        name = LOC_DATA.get(str(name_hash), "Unknown")
+
         constellation_lvl = len(character['talentIdList'])
         level = character['propMap']['4001']['ival']
         hp = int(character['fightPropMap'][STAT_KEYS["hp"]])

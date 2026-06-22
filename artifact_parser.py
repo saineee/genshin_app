@@ -1,7 +1,5 @@
 from data.stat_names import STAT_NAMES
-import json
-with open("data/loc.json", "r") as f:
-    LOC_DATA = json.load(f)["en"]
+from data.game_data import LOC_DATA
 
 #Key to easily identify which slot is which
 EQUIP_SLOTS = {
