@@ -19,7 +19,7 @@ def characters():
         {"name": character.name, "level": character.level, "hp": character.hp, "atk": character.atk,
          "def": character.def_, "em": character.em, "er": character.er, "crit_rate": character.crit_rate,
          "crit_dmg": character.crit_dmg, "constellation_lvl": character.constellation_lvl, "weapon_name": character.weapon_name,
-         "talent_na": character.talent_na, "talent_burst": character.talent_burst, "friendship_lvl": character.friendship_lvl, "artifacts": [{"slot": artifact.slot,
+         "talent_na": character.talent_na, "talent_burst": character.talent_burst, "talent_skill": character.talent_skill, "friendship_lvl": character.friendship_lvl, "artifacts": [{"slot": artifact.slot,
          "set_name": artifact.set_name, "main_stat": artifact.main_stat, "main_stat_val": artifact.main_stat_val, "sub1" : artifact.sub1,
          "sub1_val": artifact.sub1_val, "sub2": artifact.sub2, "sub2_val": artifact.sub2_val, "sub3": artifact.sub3, "sub3_val": artifact.sub3_val,
          "sub4": artifact.sub4, "sub4_val": artifact.sub4_val} for artifact in character.artifacts]} for character in characters]
