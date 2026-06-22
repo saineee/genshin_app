@@ -113,7 +113,6 @@ if __name__ == "__main__":
         friendship_lvl = character['fetterInfo']['expLevel']
         weapon_refinement = list(weapon['weapon']['affixMap'].values())[0] + 1
         weapon_name = LOC_DATA.get(weapon['flat']['nameTextMapHash'], "Unknown")
-        print(f"weapon hash: {weapon['flat']['nameTextMapHash']}, result: {weapon_name}")
         name_hash = SKILL_REFERENCE.get(str(avatar_id), {}).get("NameTextMapHash")
         name = LOC_DATA.get(str(name_hash), "Unknown")
 
