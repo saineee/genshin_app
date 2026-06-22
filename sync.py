@@ -1,5 +1,5 @@
 #Standard imports
-from db import engine, Session
+from db import Session
 from models import Character, Artifact
 from data.stat_keys import STAT_KEYS
 from data.avatar_names import AVATAR_NAMES
@@ -46,10 +46,10 @@ def insert_artifact(session, artifact, character_id):
                                 sub4 = artifact['sub4'], sub4_val = artifact['sub4_val'])
         session.add(new_artifact)
 
+#Assumes that the skillLevelMap keys are ordered, normal bonus, skill bonus, burst bonus
+#maps proudSkillExtraLevelMap to the corresponding talent id
 def get_constellation_bonuses(character, avatar_id, skill_reference):
     avatar_data = skill_reference.get(str(avatar_id))
-    print(
-        f"DEBUG avatar_id={avatar_id}, avatar_data found={avatar_data is not None}, proudMap={avatar_data.get('ProudMap') if avatar_data else None}, proudSkillExtraLevelMap={character.get('proudSkillExtraLevelMap')}")
     if avatar_data is None or "ProudMap" not in avatar_data:
         return 0, 0, 0
 
@@ -117,8 +117,6 @@ if __name__ == "__main__":
         weapon_refinement = list(weapon['weapon']['affixMap'].values())[0] + 1
         weapon_name = WEAPON_NAMES.get(weapon['itemId'], "Unknown")
         name = AVATAR_NAMES.get(avatar_id, "Unknown")
-        if name == "Unknown":
-            print(f"Unknown avatar: {avatar_id}, weapon itemId: {weapon['itemId']}")
         constellation_lvl = len(character['talentIdList'])
         level = character['propMap']['4001']['ival']
         hp = int(character['fightPropMap'][STAT_KEYS["hp"]])

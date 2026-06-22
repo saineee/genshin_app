@@ -1,5 +1,7 @@
-from data.artifact_sets import ARTIFACT_SETS
 from data.stat_names import STAT_NAMES
+import json
+with open("data/loc.json", "r") as f:
+    LOC_DATA = json.load(f)["en"]
 
 #Key to easily identify which slot is which
 EQUIP_SLOTS = {
@@ -21,7 +23,7 @@ def parse_artifacts(character):
             slot = EQUIP_SLOTS.get(flat['equipType'], "Unknown")
 
             #Grab the artifact set name itself (e.g. thundering fury)
-            set_name = ARTIFACT_SETS.get(flat['setId'], "Unknown")
+            set_name = LOC_DATA.get(str(flat['setNameTextMapHash']), "Unknown")
 
             #Grab main stat type and value from the artifact piece
             main_stats = flat.get('reliquaryMainstat')
