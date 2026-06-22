@@ -8,6 +8,9 @@ from artifact_parser import parse_artifacts
 import requests
 from sqlalchemy.exc import IntegrityError
 from requests.exceptions import Timeout, ConnectionError, HTTPError
+import json
+with open("data/character_skills.json", "r") as f:
+    SKILL_REFERENCE = json.load(f)
 
 #Sets player's UID and the enka network url we're doing API calls from
 uid = "608344004"
@@ -43,6 +46,30 @@ def insert_artifact(session, artifact, character_id):
                                 sub4 = artifact['sub4'], sub4_val = artifact['sub4_val'])
         session.add(new_artifact)
 
+def get_constellation_bonuses(character, avatar_id, skill_reference):
+    avatar_data = skill_reference.get(str(avatar_id))
+    print(
+        f"DEBUG avatar_id={avatar_id}, avatar_data found={avatar_data is not None}, proudMap={avatar_data.get('ProudMap') if avatar_data else None}, proudSkillExtraLevelMap={character.get('proudSkillExtraLevelMap')}")
+    if avatar_data is None or "ProudMap" not in avatar_data:
+        return 0, 0, 0
+
+    proud_to_skill = {str(proud_id): skill_id for skill_id, proud_id in avatar_data["ProudMap"].items()}
+    skill_ids_in_order = list(character["skillLevelMap"].keys())
+    na_bonus, skill_bonus, burst_bonus = 0, 0, 0
+
+    for proud_id, bonus in character.get("proudSkillExtraLevelMap", {}).items():
+        skill_id = proud_to_skill.get(proud_id)
+        if skill_id is None:
+            continue
+        if skill_id == skill_ids_in_order[0]:
+            na_bonus += bonus
+        elif skill_id == skill_ids_in_order[1]:
+            skill_bonus += bonus
+        elif skill_id == skill_ids_in_order[2]:
+            burst_bonus += bonus
+
+    return na_bonus, skill_bonus, burst_bonus
+
 if __name__ == "__main__":
 
     #enka.network requires a custom User-agent header and enforces rate limits on UID requests
@@ -73,22 +100,22 @@ if __name__ == "__main__":
         for item in character['equipList']:
             if item['flat']['itemType'] == 'ITEM_WEAPON':
                 weapon = item
-
         #talent values
         talent_values = list(character['skillLevelMap'].values())
         talent_na = talent_values[0]
         talent_skill = talent_values[1]
         talent_burst = talent_values[2]
+        avatar_id = character['avatarId']
 
-        #check if constellation talent bonus exists
-        if 'proudSkillExtraLevelMap' in character:
-            talent_skill += character['proudSkillExtraLevelMap'].get('4232', 0)
-            talent_burst += character['proudSkillExtraLevelMap'].get('4239', 0)
+        #add constellation talent bonuses if applicable
+        na_bonus, skill_bonus, burst_bonus = get_constellation_bonuses(character, avatar_id, SKILL_REFERENCE)
+        talent_na += na_bonus
+        talent_skill += skill_bonus
+        talent_burst += burst_bonus
 
         friendship_lvl = character['fetterInfo']['expLevel']
         weapon_refinement = list(weapon['weapon']['affixMap'].values())[0] + 1
         weapon_name = WEAPON_NAMES.get(weapon['itemId'], "Unknown")
-        avatar_id =  character['avatarId']
         name = AVATAR_NAMES.get(avatar_id, "Unknown")
         if name == "Unknown":
             print(f"Unknown avatar: {avatar_id}, weapon itemId: {weapon['itemId']}")
