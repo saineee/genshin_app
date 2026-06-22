@@ -90,6 +90,8 @@ if __name__ == "__main__":
         weapon_name = WEAPON_NAMES.get(weapon['itemId'], "Unknown")
         avatar_id =  character['avatarId']
         name = AVATAR_NAMES.get(avatar_id, "Unknown")
+        if name == "Unknown":
+            print(f"Unknown avatar: {avatar_id}, weapon itemId: {weapon['itemId']}")
         constellation_lvl = len(character['talentIdList'])
         level = character['propMap']['4001']['ival']
         hp = int(character['fightPropMap'][STAT_KEYS["hp"]])
