@@ -1,7 +1,7 @@
 #Standard imports
 from db import Session
 from models import Character, Artifact
-from data.stat_keys import STAT_KEYS
+from data.stat_keys import STAT_KEYS, DMG_BONUS_KEYS
 from artifact_parser import parse_artifacts
 import requests
 from sqlalchemy.exc import IntegrityError
@@ -16,11 +16,13 @@ url = f"https://enka.network/api/uid/{uid}/"
 def insert_character(session, uid, avatar_id, weapon_refinement, weapon_name,
                      name, constellation_lvl, level, hp,
                      atk, defense, em, er, crit_rate, crit_dmg,
-                     talent_na, talent_skill, talent_burst, friendship_lvl):
+                     talent_na, talent_skill, talent_burst, friendship_lvl,
+                     dmg_bonus_type, dmg_bonus_val):
     try:
         character = Character(uid = uid, avatar_id = avatar_id, weapon_refinement = weapon_refinement, weapon_name = weapon_name, name = name,
                                   constellation_lvl = constellation_lvl, level = level, hp = hp, atk = atk, def_ = defense, em = em, er = er,
-                                  crit_rate = crit_rate, crit_dmg = crit_dmg, talent_na = talent_na, talent_skill = talent_skill, talent_burst = talent_burst, friendship_lvl = friendship_lvl)
+                                  crit_rate = crit_rate, crit_dmg = crit_dmg, talent_na = talent_na, talent_skill = talent_skill, talent_burst = talent_burst, friendship_lvl = friendship_lvl,
+                              dmg_bonus_type = dmg_bonus_type, dmg_bonus_val = dmg_bonus_val)
         session.add(character)
         session.commit()
         return character.id
@@ -126,9 +128,15 @@ if __name__ == "__main__":
         em = int(character['fightPropMap'][STAT_KEYS["em"]])
         er = int(character['fightPropMap'][STAT_KEYS["er"]] * 100)
 
+        #grab the highest dmg bonus from fightPropMap
+        dmg_bonus_type, dmg_bonus_key = max(DMG_BONUS_KEYS.items(), key=lambda item: character['fightPropMap'].get(item[1], 0))
+
+        #search for actual value of the bonus_dmg using the key
+        dmg_bonus_val = round(character['fightPropMap'].get(dmg_bonus_key, 0) * 100, 1)
+
         #call insert_character function and store character_id so we know who has the artifact
         character_id = insert_character(session, uid, avatar_id, weapon_refinement, weapon_name, name, constellation_lvl, level, hp, atk, defense,
-                         em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst, friendship_lvl)
+                         em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst, friendship_lvl, dmg_bonus_type, dmg_bonus_val)
 
         # call parse_artifact function to store EACH artifact for current character, skip/continue if already in DB
         if character_id is None:

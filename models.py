@@ -26,6 +26,8 @@ class Character(Base):
     talent_skill = Column(Integer)
     talent_burst = Column(Integer)
     friendship_lvl = Column(Integer)
+    dmg_bonus_type = Column(String)
+    dmg_bonus_val =  Column(Float)
 
 #Define artifact class, connects to the artifact table in postgre
 class Artifact(Base):
