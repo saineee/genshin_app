@@ -90,6 +90,12 @@
                     <span class="text-gray-400">Crit DMG</span>
                     <span class="font-bold">{{ character.crit_dmg }}%</span>
                     </div>
+                    {% if character.dmg_bonus_val and character.dmg_bonus_val > 0 %}
+                        <div class="flex justify-between py-1 border-b border-gray-700">
+                        <span class="text-gray-400">{{ character.dmg_bonus_type }} Bonus</span>
+                        <span class="font-bold">{{ character.dmg_bonus_val }}%</span>
+                        </div>
+                    {% endif %}
                     <br>
                     <strong>Talents</strong><br>
                     <div class="flex justify-between py-1 border-b border-gray-700">
