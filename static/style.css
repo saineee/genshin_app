@@ -1,0 +1,14 @@
+body {
+    background-color: #0a0a0f;
+    color: #e0e0e0;
+    font-family: Rajdhani, sans-serif;
+    padding: 20px;
+}
+
+.character-card {
+    background-color: #1a1a2e;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-left: 4px solid #7b2fbe;
+}
