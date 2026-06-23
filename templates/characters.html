@@ -32,40 +32,45 @@
     </h1>
     <div>
         {% for character in characters %}
-            <div class="bg-abyss-card rounded-lg p-5 mb-5 border-l-4 border-electro">
-            <strong>Character Details</strong><br>
-            Character: {{ character.name }}<br>
-            Level: {{ character.level }}<br>
-            Constellation Level: {{ character.constellation_lvl }}<br>
-            UID: {{ character.uid }}<br>
-            Weapon: {{ character.weapon_name }}<br>
-            Friendship Level: {{ character.friendship_lvl }}<br><br>
-            <strong>Stats:</strong><br>
-            HP: {{ character.hp }}<br>
-            ATK: {{ character.atk }}<br>
-            DEF: {{ character.def_ }}<br>
-            Elemental Mastery: {{ character.em }}<br>
-            Energy Recharge: {{ character.er }}<br>
-            Crit Rate: {{ character.crit_rate }}<br>
-            Crit DMG: {{ character.crit_dmg }}<br><br>
-            <strong>Talents</strong><br>
-            Normal Attack Level: {{ character.talent_na }}<br>
-            Skill Level: {{ character.talent_skill }}<br>
-            Burst Level: {{ character.talent_burst }}<br>
-            <br>
-            <strong>Artifacts</strong><br>
-            {% for artifact in character.artifacts %}
-                Set: {{ artifact.set_name }}<br>
-                Slot: {{ artifact.slot }}<br>
-                Main Stat: {{ artifact.main_stat }}+{{ artifact.main_stat_val }}<br>
-                Substat: {{ artifact.sub1 }}+{{ artifact.sub1_val }}<br>
-                Substat: {{ artifact.sub2 }}+{{artifact.sub2_val }}<br>
-                Substat: {{ artifact.sub3 }}+{{artifact.sub3_val }}<br>
-                Substat: {{ artifact.sub4 }}+{{artifact.sub4_val }}<br>
-                <hr class="border-t border-electro my-2">
-            {% endfor %}
-            <br>
+        <div class ="bg-abyss-card rounded-lg p-5 mb-5 border-l-4 border-electro">
+            <div class="flex gap-6">
+                <div class="flex-1">
+                    <strong>Character Details</strong><br>
+                    Character: {{ character.name }}<br>
+                    Level: {{ character.level }}<br>
+                    Constellation Level: {{ character.constellation_lvl }}<br>
+                    UID: {{ character.uid }}<br>
+                    Weapon: {{ character.weapon_name }}<br>
+                    Friendship Level: {{ character.friendship_lvl }}<br><br>
+                    <strong>Stats:</strong><br>
+                    HP: {{ character.hp }}<br>
+                    ATK: {{ character.atk }}<br>
+                    DEF: {{ character.def_ }}<br>
+                    Elemental Mastery: {{ character.em }}<br>
+                    Energy Recharge: {{ character.er }}<br>
+                    Crit Rate: {{ character.crit_rate }}<br>
+                    Crit DMG: {{ character.crit_dmg }}<br><br>
+                    <strong>Talents</strong><br>
+                    Normal Attack Level: {{ character.talent_na }}<br>
+                    Skill Level: {{ character.talent_skill }}<br>
+                    Burst Level: {{ character.talent_burst }}<br>
+                    <br>
+                </div>
+                <div class="flex-1">
+                    <strong>Artifacts</strong><br>
+                    {% for artifact in character.artifacts %}
+                        Set: {{ artifact.set_name }}<br>
+                        Slot: {{ artifact.slot }}<br>
+                        Main Stat: {{ artifact.main_stat }}+{{ artifact.main_stat_val }}<br>
+                        Substat: {{ artifact.sub1 }}+{{ artifact.sub1_val }}<br>
+                        Substat: {{ artifact.sub2 }}+{{artifact.sub2_val }}<br>
+                        Substat: {{ artifact.sub3 }}+{{artifact.sub3_val }}<br>
+                        Substat: {{ artifact.sub4 }}+{{artifact.sub4_val }}<br>
+                        <hr class="border-t border-electro my-2">
+                    {% endfor %}
+                </div>
             </div>
+        </div>
         {% endfor %}
     </div>
 </body>
