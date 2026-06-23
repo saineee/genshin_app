@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Genshin Build Tracker
+    </title>
+</head>
+<body>
+    <h1>
+        Genshin Build Tracker
+    </h1>
+    <div>
+        {% for character in characters %}
+            Character: {{ character.name }}<br>
+            Level: {{ character.level }}<br>
+            Weapon: {{ character.weapon_name }}<br>
+            Friendship Level: {{ character.friendship_lvl }}<br><br>
+        {% endfor %}
+    </div>
+</body>
+</html>

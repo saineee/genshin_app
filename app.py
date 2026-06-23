@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from models import Character
 from db import Session
 from sqlalchemy import select
@@ -24,6 +24,12 @@ def characters():
          "sub1_val": artifact.sub1_val, "sub2": artifact.sub2, "sub2_val": artifact.sub2_val, "sub3": artifact.sub3, "sub3_val": artifact.sub3_val,
          "sub4": artifact.sub4, "sub4_val": artifact.sub4_val} for artifact in character.artifacts]} for character in characters]
     }
+
+@app.route("/characters/view")
+def characters_view():
+    session = Session()
+    characters = session.execute(select(Character)).scalars().all()
+    return render_template("characters.html", characters=characters)
 
 if __name__ == "__main__":
     app.run(debug=True)
