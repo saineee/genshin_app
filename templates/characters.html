@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <title>
         Genshin Build Tracker
     </title>
@@ -12,9 +16,10 @@
     <div>
         {% for character in characters %}
             <div class="character-card">
+            <strong>Character Details</strong><br>
             Character: {{ character.name }}<br>
             Level: {{ character.level }}<br>
-            Constellation Level: {{ character.constellation_lvl }}
+            Constellation Level: {{ character.constellation_lvl }}<br>
             UID: {{ character.uid }}<br>
             Weapon: {{ character.weapon_name }}<br>
             Friendship Level: {{ character.friendship_lvl }}<br><br>
@@ -31,6 +36,7 @@
             Skill Level: {{ character.talent_skill }}<br>
             Burst Level: {{ character.talent_burst }}<br>
             <br>
+            <strong>Artifacts</strong><br>
             {% for artifact in character.artifacts %}
                 Set: {{ artifact.set_name }}<br>
                 Slot: {{ artifact.slot }}<br>
@@ -39,8 +45,7 @@
                 Substat: {{ artifact.sub2 }}+{{artifact.sub2_val }}<br>
                 Substat: {{ artifact.sub3 }}+{{artifact.sub3_val }}<br>
                 Substat: {{ artifact.sub4 }}+{{artifact.sub4_val }}<br>
-                <strong>{{ "*"*25 }} </strong>
-                <br>
+                <hr class="artifact-divider">
             {% endfor %}
             <br>
             </div>
