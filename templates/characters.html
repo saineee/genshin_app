@@ -1,21 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    'void-bg': '#0a0a0f',
+                    'abyss-card': '#1a1a2e',
+                    'electro': '#7b2fbe',
+                    'electro-light': '#9d4edd',
+                },
+                fontFamily: {
+                    'rajdhani': ['Rajdhani', 'sans-serif'],
+                }
+            }
+        }
+    }
+</script>
     <title>
         Genshin Build Tracker
     </title>
 </head>
-<body>
-    <h1>
+<body class = "bg-void-bg text-gray-200 p-5 font-rajdhani font-semibold">
+    <h1 class="text-4xl font-bold text-electro-light mb-8 tracking-widest">
         Genshin Build Tracker
     </h1>
     <div>
         {% for character in characters %}
-            <div class="character-card">
+            <div class="bg-abyss-card rounded-lg p-5 mb-5 border-l-4 border-electro">
             <strong>Character Details</strong><br>
             Character: {{ character.name }}<br>
             Level: {{ character.level }}<br>
@@ -45,7 +62,7 @@
                 Substat: {{ artifact.sub2 }}+{{artifact.sub2_val }}<br>
                 Substat: {{ artifact.sub3 }}+{{artifact.sub3_val }}<br>
                 Substat: {{ artifact.sub4 }}+{{artifact.sub4_val }}<br>
-                <hr class="artifact-divider">
+                <hr class="border-t border-electro my-2">
             {% endfor %}
             <br>
             </div>
