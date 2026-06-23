@@ -14,7 +14,19 @@
             Character: {{ character.name }}<br>
             Level: {{ character.level }}<br>
             Weapon: {{ character.weapon_name }}<br>
-            Friendship Level: {{ character.friendship_lvl }}<br><br>
+            Friendship Level: {{ character.friendship_lvl }}<br>
+            <br>
+            {% for artifact in character.artifacts %}
+                Slot: {{ artifact.slot }} <strong>|</strong>
+                Main Stat: {{ artifact.main_stat }}+{{ artifact.main_stat_val }} <strong>|</strong>
+                Substat: {{ artifact.sub1 }}+{{ artifact.sub1_val }} <strong>|</strong>
+                Substat: {{ artifact.sub2 }}+{{artifact.sub2_val }} <strong>|</strong>
+                Substat: {{ artifact.sub3 }}+{{artifact.sub3_val }} <strong>|</strong>
+                Substat: {{ artifact.sub4 }}+{{artifact.sub4_val }}<br>
+                <strong>{{ "*"*120 }} </strong>
+                <br>
+            {% endfor %}
+            <br>
         {% endfor %}
     </div>
 </body>
