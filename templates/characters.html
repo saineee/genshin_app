@@ -36,24 +36,74 @@
             <div class="flex gap-6">
                 <div class="flex-1">
                     <strong>Character Details</strong><br>
-                    Character: {{ character.name }}<br>
-                    Level: {{ character.level }}<br>
-                    Constellation Level: {{ character.constellation_lvl }}<br>
-                    UID: {{ character.uid }}<br>
-                    Weapon: {{ character.weapon_name }}<br>
-                    Friendship Level: {{ character.friendship_lvl }}<br><br>
+                    <div class="flex justify-between py-1 border-b border-gray-700">
+                    <span class="text-gray-400">Character</span>
+                    <span class="font-bold">{{ character.name }}</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-gray-700">
+                    <span class="text-gray-400">Level</span>
+                    <span class="font-bold">{{ character.level}}</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-gray-700">
+                    <span class="text-gray-400">Constellation</span>
+                    <span class="font-bold">{{ character.constellation_lvl }}</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-gray-700">
+                    <span class="text-gray-400">Weapon</span>
+                    <span class="font-bold">{{ character.weapon_name }}</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-gray-700">
+                    <span class="text-gray-400">Friendship Level</span>
+                    <span class="font-bold">{{ character.friendship_lvl }}</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-gray-700">
+                    <span class="text-gray-400">UID</span>
+                    <span class="font-bold">{{ character.uid }}</span>
+                    </div>
+                    <br>
                     <strong>Stats:</strong><br>
-                    HP: {{ character.hp }}<br>
-                    ATK: {{ character.atk }}<br>
-                    DEF: {{ character.def_ }}<br>
-                    Elemental Mastery: {{ character.em }}<br>
-                    Energy Recharge: {{ character.er }}<br>
-                    Crit Rate: {{ character.crit_rate }}<br>
-                    Crit DMG: {{ character.crit_dmg }}<br><br>
+                    <div class="flex justify-between py-1 border-b border-gray-700">
+                    <span class="text-gray-400">HP</span>
+                    <span class="font-bold">{{ character.hp }}</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-gray-700">
+                    <span class="text-gray-400">ATK</span>
+                    <span class="font-bold">{{ character.atk }}</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-gray-700">
+                    <span class="text-gray-400">DEF</span>
+                    <span class="font-bold">{{ character.def_ }}</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-gray-700">
+                    <span class="text-gray-400">Elemental Mastery</span>
+                    <span class="font-bold">{{ character.em }}</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-gray-700">
+                    <span class="text-gray-400">Energy Recharge</span>
+                    <span class="font-bold">{{ character.er }}%</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-gray-700">
+                    <span class="text-gray-400">Crit Rate</span>
+                    <span class="font-bold">{{ character.crit_rate }}%</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-gray-700">
+                    <span class="text-gray-400">Crit DMG</span>
+                    <span class="font-bold">{{ character.crit_dmg }}%</span>
+                    </div>
+                    <br>
                     <strong>Talents</strong><br>
-                    Normal Attack Level: {{ character.talent_na }}<br>
-                    Skill Level: {{ character.talent_skill }}<br>
-                    Burst Level: {{ character.talent_burst }}<br>
+                    <div class="flex justify-between py-1 border-b border-gray-700">
+                    <span class="text-gray-400">Normal Attack Level: </span>
+                    <span class="font-bold">{{ character.talent_na }}</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-gray-700">
+                    <span class="text-gray-400">Skill Level: </span>
+                    <span class="font-bold">{{ character.talent_skill }}</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-gray-700">
+                    <span class="text-gray-400">Burst Level</span>
+                    <span class="font-bold">{{ character.talent_burst }}</span>
+                    </div>
                     <br>
                 </div>
                 <div class="flex-1">

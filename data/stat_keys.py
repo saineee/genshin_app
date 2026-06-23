@@ -8,3 +8,14 @@ STAT_KEYS = {
 "em": "28",
 "er": "23"
 }
+
+DMG_BONUS_KEYS = {
+    "Physical DMG": "30",
+    "Pyro DMG": "40",
+    "Electro DMG": "41",
+    "Hydro DMG": "42",
+    "Dendro DMG": "43",
+    "Anemo DMG": "44",
+    "Geo DMG": "45",
+    "Cryo DMG": "46",
+}
