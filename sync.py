@@ -17,12 +17,12 @@ def insert_character(session, uid, avatar_id, weapon_refinement, weapon_name,
                      name, constellation_lvl, level, hp,
                      atk, defense, em, er, crit_rate, crit_dmg,
                      talent_na, talent_skill, talent_burst, friendship_lvl,
-                     dmg_bonus_type, dmg_bonus_val):
+                     dmg_bonus_type, dmg_bonus_val, icon_url):
     try:
         character = Character(uid = uid, avatar_id = avatar_id, weapon_refinement = weapon_refinement, weapon_name = weapon_name, name = name,
                                   constellation_lvl = constellation_lvl, level = level, hp = hp, atk = atk, def_ = defense, em = em, er = er,
                                   crit_rate = crit_rate, crit_dmg = crit_dmg, talent_na = talent_na, talent_skill = talent_skill, talent_burst = talent_burst, friendship_lvl = friendship_lvl,
-                              dmg_bonus_type = dmg_bonus_type, dmg_bonus_val = dmg_bonus_val)
+                              dmg_bonus_type = dmg_bonus_type, dmg_bonus_val = dmg_bonus_val, icon_url = icon_url)
         session.add(character)
         session.commit()
         return character.id
@@ -117,6 +117,8 @@ if __name__ == "__main__":
         weapon_name = LOC_DATA.get(weapon['flat']['nameTextMapHash'], "Unknown")
         name_hash = SKILL_REFERENCE.get(str(avatar_id), {}).get("NameTextMapHash")
         name = LOC_DATA.get(str(name_hash), "Unknown")
+        side_icon = SKILL_REFERENCE.get(str(avatar_id), {}).get("SideIconName", "")
+        icon_url = f"https://enka.network/ui/{side_icon.replace('Side_', '')}.png" if side_icon else None
 
         constellation_lvl = len(character['talentIdList'])
         level = character['propMap']['4001']['ival']
@@ -136,7 +138,7 @@ if __name__ == "__main__":
 
         #call insert_character function and store character_id so we know who has the artifact
         character_id = insert_character(session, uid, avatar_id, weapon_refinement, weapon_name, name, constellation_lvl, level, hp, atk, defense,
-                         em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst, friendship_lvl, dmg_bonus_type, dmg_bonus_val)
+                         em, er, crit_rate, crit_dmg, talent_na, talent_skill, talent_burst, friendship_lvl, dmg_bonus_type, dmg_bonus_val, icon_url)
 
         # call parse_artifact function to store EACH artifact for current character, skip/continue if already in DB
         if character_id is None:
