@@ -33,12 +33,18 @@
     <div>
         {% for character in characters %}
         <div class ="bg-abyss-card rounded-lg p-5 mb-5 border-l-4 border-electro">
-            <div class="flex gap-6">
+            <div class="flex justify-between gap-6">
                 <div class="flex-1">
-                    <strong>Character Details</strong><br>
+                    <div class="text-electro-light font-bold text-sm uppercase tracking-wider mb-2 mt-3">
+                        Character Details
+                    </div>
                     <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">Character</span>
                     <span class="font-bold">{{ character.name }}</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-gray-700">
+                    <span class="text-gray-400">Weapon</span>
+                    <span class="font-bold">{{ character.weapon_name }}</span>
                     </div>
                     <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">Level</span>
@@ -49,10 +55,6 @@
                     <span class="font-bold">{{ character.constellation_lvl }}</span>
                     </div>
                     <div class="flex justify-between py-1 border-b border-gray-700">
-                    <span class="text-gray-400">Weapon</span>
-                    <span class="font-bold">{{ character.weapon_name }}</span>
-                    </div>
-                    <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">Friendship Level</span>
                     <span class="font-bold">{{ character.friendship_lvl }}</span>
                     </div>
@@ -61,7 +63,9 @@
                     <span class="font-bold">{{ character.uid }}</span>
                     </div>
                     <br>
-                    <strong>Stats:</strong><br>
+                    <div class="text-electro-light font-bold text-sm uppercase tracking-wider mb-2 mt-3">
+                        Stats:
+                    </div>
                     <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">HP</span>
                     <span class="font-bold">{{ character.hp }}</span>
@@ -97,7 +101,9 @@
                         </div>
                     {% endif %}
                     <br>
-                    <strong>Talents</strong><br>
+                    <div class="text-electro-light font-bold text-sm uppercase tracking-wider mb-2 mt-3">
+                        Talents
+                    </div>
                     <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">Normal Attack Level: </span>
                     <span class="font-bold">{{ character.talent_na }}</span>
@@ -112,17 +118,31 @@
                     </div>
                     <br>
                 </div>
-                <div class="flex-1">
-                    <strong>Artifacts</strong><br>
+                <div class="w-96">
+                    <div class="text-electro-light font-bold text-sm uppercase tracking-wider mb-2 mt-3">
+                        Artifacts
+                    </div>
                     {% for artifact in character.artifacts %}
-                        Set: {{ artifact.set_name }}<br>
-                        Slot: {{ artifact.slot }}<br>
-                        Main Stat: {{ artifact.main_stat }}+{{ artifact.main_stat_val }}<br>
-                        Substat: {{ artifact.sub1 }}+{{ artifact.sub1_val }}<br>
-                        Substat: {{ artifact.sub2 }}+{{artifact.sub2_val }}<br>
-                        Substat: {{ artifact.sub3 }}+{{artifact.sub3_val }}<br>
-                        Substat: {{ artifact.sub4 }}+{{artifact.sub4_val }}<br>
+                    <div class="bg-gray-800 rounded-lg mb-3 p-3 border-l-2 border-electro">
+                        <div class="text-electro-light text-lg font-bold">
+                            {{ artifact.slot }}
+                        </div>
+                        <div class="text-white font-bold">
+                            {{ artifact.set_name }}
+                        </div>
+                        <div class="text-white text-md font-bold">
+                            {{ artifact.main_stat }}+{{ artifact.main_stat_val }}
+                        </div>
+                        <div class="text-white text-sm">
+                            {{ artifact.sub1 }}+{{ artifact.sub1_val }}</div>
+                        <div class="text-white text-sm">
+                            {{ artifact.sub2 }}+{{artifact.sub2_val }}</div>
+                        <div class="text-white text-sm">
+                            {{ artifact.sub3 }}+{{artifact.sub3_val }}</div>
+                        <div class="text-white text-sm">
+                            {{ artifact.sub4 }}+{{artifact.sub4_val }}</div>
                         <hr class="border-t border-electro my-2">
+                    </div>
                     {% endfor %}
                 </div>
             </div>
