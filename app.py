@@ -1,7 +1,11 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from models import Character
 from db import Session
 from sqlalchemy import select
+from enka_client import fetch_player_data
+from parsers import parse_character, parse_artifacts
+from db_ops import insert_character, insert_artifact
+from requests.exceptions import Timeout, ConnectionError, HTTPError
 
 app = Flask(__name__)
 
@@ -26,11 +30,34 @@ def characters():
          "sub4": artifact.sub4, "sub4_val": artifact.sub4_val} for artifact in character.artifacts]} for character in characters]
     }
 
-@app.route("/characters/view")
+@app.route("/characters/view", methods=["GET", "POST"])
 def characters_view():
     session = Session()
-    characters = session.execute(select(Character)).scalars().all()
-    return render_template("characters.html", characters=characters)
+    if request.method == "POST":
+        uid = request.form.get("uid")
+        try:
+            player_data = fetch_player_data(uid)
+        except Timeout as e:
+            return render_template("characters.html", error = f"enka.network timed out: {e}")
+        except ConnectionError as e:
+            return render_template("characters.html", error = f"enka.network connection error: {e}")
+        except HTTPError as e:
+            return render_template("characters.html", error = f"enka.network request could not be fulfilled: {e}")
+
+        for character in player_data["avatarInfoList"]:
+            data = parse_character(character, uid)
+            character_id = insert_character(session, data)
+            if character_id is None:
+                continue
+            artifact_data = parse_artifacts(character)
+            for artifact in artifact_data:
+                insert_artifact(session, artifact, character_id)
+
+        characters = session.execute(select(Character).where(Character.uid == uid)).scalars().all()
+        return render_template("characters.html", characters = characters)
+    else:
+        characters = session.execute(select(Character)).scalars().all()
+        return render_template("characters.html", characters=characters)
 
 if __name__ == "__main__":
     app.run(debug=True)

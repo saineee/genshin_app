@@ -114,7 +114,7 @@ def parse_character(character, uid):
     side_icon = SKILL_REFERENCE.get(str(avatar_id), {}).get("SideIconName", "")
     char_name = side_icon.replace("UI_AvatarIcon_Side_", "") if side_icon else None
     icon_url = f"https://enka.network/ui/UI_Gacha_AvatarImg_{char_name}.png" if char_name else None
-    constellation_lvl = len(character['talentIdList'])
+    constellation_lvl = len(character.get('talentIdList', []))
     level = character['propMap']['4001']['ival']
     hp = int(character['fightPropMap'][STAT_KEYS["hp"]])
     atk = int(character['fightPropMap'][STAT_KEYS["atk"]])
