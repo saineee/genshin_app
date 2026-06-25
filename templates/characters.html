@@ -44,7 +44,7 @@
                     </div>
                     <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">Weapon</span>
-                    <span class="font-bold">{{ character.weapon_name }}</span>
+                    <span class="truncate min-w-0 text-right font-bold">{{ character.weapon_name }}</span>
                     </div>
                     <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">Level</span>
@@ -117,6 +117,11 @@
                     <span class="font-bold">{{ character.talent_burst }}</span>
                     </div>
                     <br>
+                </div>
+                <div class="w-72 max-h-96 flex items-center justify-center">
+                    {% if character.icon_url is not none %}
+                        <img class="max-h-full object-contain" src="{{ character.icon_url }}">
+                    {% endif %}
                 </div>
                 <div class="w-96">
                     <div class="text-electro-light font-bold text-sm uppercase tracking-wider mb-2 mt-3">
