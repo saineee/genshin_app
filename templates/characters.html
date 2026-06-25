@@ -5,6 +5,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #0a0a0f;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #7b2fbe;
+        border-radius: 3px;
+    }
+</style>
     <script>
     tailwind.config = {
         theme: {
@@ -26,15 +38,24 @@
         Genshin Build Tracker
     </title>
 </head>
-<body class = "bg-void-bg text-gray-200 p-5 font-rajdhani font-semibold">
+<body class="text-gray-200 p-5 font-rajdhani font-semibold min-h-screen" style="background: radial-gradient(ellipse at top, #3a0a6e 0%, #0a0a0f 100%);">
     <h1 class="text-4xl font-bold text-electro-light mb-8 tracking-widest">
         Genshin Build Tracker
     </h1>
+    <div class="flex gap-3 justify-center mb-6">
+        {% for character in characters %}
+        <button onclick="showCharacter({{ loop.index0 }})">
+            {{ character.name }}
+        </button>
+        {% endfor %}
+    </div>
     <div>
         {% for character in characters %}
-        <div class ="bg-abyss-card rounded-lg p-5 mb-5 border-l-4 border-electro">
-            <div class="flex gap-6">
-                <div class="flex-1 max-w-lg border-r border-gray-600 pr-6">
+        <div id="character-{{ loop.index0 }}" class="bg-abyss-card rounded-lg p-5 mb-5 border-l-4 border-electro w-fit mx-auto" style="{% if not loop.first %}display:none{% endif %}">
+            <div class="flex gap-6 w-full">
+                <div class="w-96 h-[660px] rounded-lg overflow-hidden border border-electro" style="background-image: url('{{ character.icon_url }}'); background-size: auto 130%; background-position: center 20%; background-repeat: no-repeat;">
+                </div>
+                <div class="w-72 flex-none border-r border-gray-600 pr-6 max-h-[660px] overflow-y-auto">
                     <div class="text-electro-light font-bold text-sm uppercase tracking-wider mb-2 mt-3">
                         Character Details
                     </div>
@@ -118,41 +139,41 @@
                     </div>
                     <br>
                 </div>
-                <div class="w-72 max-h-96 flex items-center justify-center">
-                    {% if character.icon_url is not none %}
-                        <img class="max-h-full object-contain" src="{{ character.icon_url }}">
-                    {% endif %}
+                <div class="w-96 flex-none overflow-y-auto max-h-[660px] flex flex-col">
+                <div class="text-electro-light font-bold text-sm uppercase tracking-wider mb-2 mt-3">
+                    Artifacts
                 </div>
-                <div class="w-96">
-                    <div class="text-electro-light font-bold text-sm uppercase tracking-wider mb-2 mt-3">
-                        Artifacts
+                {% for artifact in character.artifacts %}
+                <div class="bg-gray-800 rounded-lg mb-1 p-2 border-l-2 border-electro flex gap-2 flex-1">
+                    <div class="flex flex-col justify-center w-36 flex-none items-center bg-gray-900 rounded"> <!-- left side -->
+                        <div class="text-xs text-gray-400">{{ artifact.set_name }}</div>
+                        <div class="text-white text-md font-bold">{{ artifact.main_stat }}</div>
+                        <div class="text-white text-md font-bold">+{{ artifact.main_stat_val }}</div>
                     </div>
-                    {% for artifact in character.artifacts %}
-                    <div class="bg-gray-800 rounded-lg mb-3 p-3 border-l-2 border-electro">
-                        <div class="text-electro-light text-lg font-bold">
-                            {{ artifact.slot }}
+                    <div class="flex flex-1 gap-1"> <!-- right side -->
+                        <div class="flex flex-col flex-1 gap-1">
+                            <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">{{ artifact.sub1 }}+{{ artifact.sub1_val }}</div>
+                            <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">{{ artifact.sub3 }}+{{ artifact.sub3_val }}</div>
                         </div>
-                        <div class="text-white font-bold">
-                            {{ artifact.set_name }}
+                        <div class="flex flex-col flex-1 gap-1">
+                            <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">{{ artifact.sub2 }}+{{ artifact.sub2_val }}</div>
+                            <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">{{ artifact.sub4 }}+{{ artifact.sub4_val }}</div>
                         </div>
-                        <div class="text-white text-md font-bold">
-                            {{ artifact.main_stat }}+{{ artifact.main_stat_val }}
-                        </div>
-                        <div class="text-white text-sm">
-                            {{ artifact.sub1 }}+{{ artifact.sub1_val }}</div>
-                        <div class="text-white text-sm">
-                            {{ artifact.sub2 }}+{{artifact.sub2_val }}</div>
-                        <div class="text-white text-sm">
-                            {{ artifact.sub3 }}+{{artifact.sub3_val }}</div>
-                        <div class="text-white text-sm">
-                            {{ artifact.sub4 }}+{{artifact.sub4_val }}</div>
-                        <hr class="border-t border-electro my-2">
                     </div>
-                    {% endfor %}
+                </div>
+                {% endfor %}
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
+<script>
+    function showCharacter(index) {
+    document.querySelectorAll('[id^="character-"]').forEach(function(el) {
+        el.style.display = "none";
+    });
+    document.getElementById("character-" + index).style.display = "block";
+}
+</script>
 </body>
 </html>
