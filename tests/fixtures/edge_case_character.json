@@ -1,0 +1,26 @@
+{
+  "equipList": [
+    {
+      "flat": {
+        "nameTextMapHash": "177591468",
+        "itemType": "ITEM_RELIQUARY",
+        "equipType": "EQUIP_BRACER",
+        "setNameTextMapHash": "2512309395",
+        "reliquarySubstats": [
+          {
+            "appendPropId": "FIGHT_PROP_CRITICAL_HURT",
+            "statValue": 22.5
+          },
+          {
+            "appendPropId": "FIGHT_PROP_ATTACK_PERCENT",
+            "statValue": 13.6
+          }
+        ],
+        "reliquaryMainstat": {
+          "mainPropId": "FIGHT_PROP_HP",
+          "statValue": 4780
+        }
+      }
+    }
+  ]
+}
