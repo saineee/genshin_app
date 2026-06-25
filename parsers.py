@@ -106,8 +106,8 @@ def parse_character(character, uid):
     talent_na += na_bonus
     talent_skill += skill_bonus
     talent_burst += burst_bonus
-    friendship_lvl = character['fetterInfo']['expLevel']
-    weapon_refinement = list(weapon['weapon']['affixMap'].values())[0] + 1
+    friendship_lvl = character.get('fetterInfo', {}).get('expLevel', 1)
+    weapon_refinement = list(weapon['weapon'].get('affixMap', {1: 0}).values())[0] + 1
     weapon_name = LOC_DATA.get(weapon['flat']['nameTextMapHash'], "Unknown")
     name_hash = SKILL_REFERENCE.get(str(avatar_id), {}).get("NameTextMapHash")
     name = LOC_DATA.get(str(name_hash), "Unknown")
@@ -115,7 +115,7 @@ def parse_character(character, uid):
     char_name = side_icon.replace("UI_AvatarIcon_Side_", "") if side_icon else None
     icon_url = f"https://enka.network/ui/UI_Gacha_AvatarImg_{char_name}.png" if char_name else None
     constellation_lvl = len(character.get('talentIdList', []))
-    level = character['propMap']['4001']['ival']
+    level = character['propMap'].get('4001', {}).get('ival', 1)
     hp = int(character['fightPropMap'][STAT_KEYS["hp"]])
     atk = int(character['fightPropMap'][STAT_KEYS["atk"]])
     defense = int(character['fightPropMap'][STAT_KEYS["def"]])
