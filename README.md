@@ -71,3 +71,7 @@ A custom `User-Agent` header is required per their usage guidelines.
 
 - Newer characters and weapons (Zibai, Nicole, Skirk's weapon, Furina's weapon)
   display as "Unknown" due to an outdated `loc.json` from the enka repo
+
+## License
+
+MIT
