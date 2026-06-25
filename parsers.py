@@ -96,7 +96,7 @@ def parse_character(character, uid):
         if item['flat']['itemType'] == 'ITEM_WEAPON':
             weapon = item
 
-        # character stat details
+    # character stat details
     talent_values = list(character['skillLevelMap'].values())
     talent_na = talent_values[0]
     talent_skill = talent_values[1]
