@@ -56,17 +56,25 @@
     <div class="bg-abyss-card rounded-lg border border-electro flex mx-auto w-fit mb-6">
         <div class="p-6 flex flex-col justify-center border-r border-gray-600">
             <p class="font-bold text-lg">{{ player_info.nickname }}</p>
-            <p class="text-md">AR {{ player_info.level }} · WL {{ player_info.worldLevel }}</p>
-            <p class="italic text-gray-400">{{ player_info.signature }}</p>
+            <p class="text-md">AR {{ player_info.level }} · WL {{ player_info.worldLevel | default(0) }}</p>
+            <p class="italic text-gray-400">{{ player_info.signature | default('') }}</p>
         </div>
         <div class="p-6 flex flex-col justify-center gap-2 border-r border-gray-600">
-            <p>{{ player_info.finishAchievementNum }} Total Achievements</p>
-            <p>{{ player_info.towerFloorIndex }}-{{ player_info.towerLevelIndex }} | {{ player_info.towerStarIndex }} ★ Spiral Abyss</p>
+            <p>{{ player_info.get('finishAchievementNum', 0) }} Total Achievements</p>
+            {% if player_info.towerFloorIndex is defined and player_info.towerFloorIndex %}
+            <p>{{ player_info.towerFloorIndex }}-{{ player_info.towerLevelIndex }} | {{ player_info.towerStarIndex }}★ Spiral Abyss</p>
+            {% endif %}
         </div>
+        {% if player_info.stygianSeconds is defined and player_info.stygianSeconds %}
         <div class="p-6 flex flex-col justify-center gap-2 w-fit">
-            <p>Act {{ player_info.theaterActIndex }} | {{ player_info.theaterStarIndex }} ★ Imaginarium Theater</p>
+            {% if player_info.theaterActIndex is defined and player_info.theaterActIndex %}
+            <p>Act {{ player_info.theaterActIndex }} | {{ player_info.theaterStarIndex }}★ Imaginarium Theater</p>
+            {% endif %}
+            {% if player_info.stygianSeconds is defined and player_info.stygianSeconds %}
             <p>{{ player_info.stygianSeconds }}s · {{ stygian_difficulty }} Stygian Onslaught</p>
+            {% endif %}
         </div>
+        {% endif %}
     </div>
     {% endif %}
     <div class="flex gap-3 justify-center mb-6">
