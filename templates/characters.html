@@ -187,25 +187,29 @@
                 <div class="text-electro-light font-bold text-sm uppercase tracking-wider mb-2 mt-3">
                     Artifacts
                 </div>
-                {% for artifact in character.artifacts %}
-                <div class="bg-gray-800 rounded-lg mb-1 p-2 border-l-2 border-electro flex gap-2 flex-1">
-                    <div class="flex flex-col justify-center w-36 flex-none items-center bg-gray-900 rounded"> <!-- left side -->
-                        <div class="text-xs text-gray-400">{{ artifact.set_name }}</div>
-                        <div class="text-white text-md font-bold">{{ artifact.main_stat }}</div>
-                        <div class="text-white text-md font-bold">+{{ artifact.main_stat_val }}</div>
-                    </div>
-                    <div class="flex flex-1 gap-1"> <!-- right side -->
-                        <div class="flex flex-col flex-1 gap-1">
-                            <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">{{ artifact.sub1 }}+{{ artifact.sub1_val }}</div>
-                            <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">{{ artifact.sub3 }}+{{ artifact.sub3_val }}</div>
+                    {% if character.artifacts %}
+                    {% for artifact in character.artifacts %}
+                    <div class="bg-gray-800 rounded-lg mb-1 p-2 border-l-2 border-electro flex gap-2 flex-1">
+                        <div class="flex flex-col justify-center w-36 flex-none items-center bg-gray-900 rounded"> <!-- left side -->
+                            <div class="text-xs text-gray-400">{{ artifact.set_name }}</div>
+                            <div class="text-white text-md font-bold">{{ artifact.main_stat }}</div>
+                            <div class="text-white text-md font-bold">+{{ artifact.main_stat_val }}</div>
                         </div>
-                        <div class="flex flex-col flex-1 gap-1">
-                            <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">{{ artifact.sub2 }}+{{ artifact.sub2_val }}</div>
-                            <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">{{ artifact.sub4 }}+{{ artifact.sub4_val }}</div>
+                        <div class="flex flex-1 gap-1"> <!-- right side -->
+                            <div class="flex flex-col flex-1 gap-1">
+                                <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">{{ artifact.sub1 }}+{{ artifact.sub1_val }}</div>
+                                <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">{{ artifact.sub3 }}+{{ artifact.sub3_val }}</div>
+                            </div>
+                            <div class="flex flex-col flex-1 gap-1">
+                                <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">{{ artifact.sub2 }}+{{ artifact.sub2_val }}</div>
+                                <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">{{ artifact.sub4 }}+{{ artifact.sub4_val }}</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                {% endfor %}
+                    {% endfor %}
+                    {% else %}
+                    <p class="text-gray-500 italic text-sm mt-4">No artifacts equipped.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
