@@ -4,7 +4,7 @@ from db import Session
 from sqlalchemy import select
 from enka_client import fetch_player_data
 from parsers import parse_character, parse_artifacts
-from db_ops import insert_character, insert_artifact
+from db_ops import insert_character, insert_artifact, upsert_character, upsert_artifact
 from requests.exceptions import Timeout, ConnectionError, HTTPError
 
 app = Flask(__name__)
@@ -46,17 +46,18 @@ def characters_view():
 
         for character in player_data.get("avatarInfoList", [])  :
             data = parse_character(character, uid)
-            character_id = insert_character(session, data)
+            character_id = upsert_character(session, data)
             if character_id is None:
                 continue
             artifact_data = parse_artifacts(character)
-            for artifact in artifact_data:
-                insert_artifact(session, artifact, character_id)
+            upsert_artifact(session, artifact_data, character_id)
 
         showcase_empty = len(player_data.get("avatarInfoList", [])) == 0
         player_info = player_data.get("playerInfo", {})
-        stygian_difficulty = {3: "Hard", 4: "Menacing", 5: "Fearless", 6: "Dire"}.get(player_info.get("stygianIndex"),"Unknown")
-        characters = session.execute(select(Character).where(Character.uid == uid)).scalars().all()
+        stygian_difficulty = {1: "Normal", 2: "Advancing", 3: "Hard", 4: "Menacing", 5: "Fearless", 6: "Dire"}.get(player_info.get("stygianIndex"),"Unknown")
+        characters = session.execute(
+            select(Character).where(Character.uid == uid).order_by(Character.id)
+        ).scalars().all()
         return render_template("characters.html", characters = characters, showcase_empty = showcase_empty, player_info = player_info, stygian_difficulty = stygian_difficulty)
     else:
         characters = session.execute(select(Character)).scalars().all()
