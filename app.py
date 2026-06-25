@@ -44,7 +44,7 @@ def characters_view():
         except HTTPError as e:
             return render_template("characters.html", error = f"enka.network request could not be fulfilled: {e}")
 
-        for character in player_data["avatarInfoList"]:
+        for character in player_data.get("avatarInfoList", [])  :
             data = parse_character(character, uid)
             character_id = insert_character(session, data)
             if character_id is None:
@@ -53,8 +53,11 @@ def characters_view():
             for artifact in artifact_data:
                 insert_artifact(session, artifact, character_id)
 
+        showcase_empty = len(player_data.get("avatarInfoList", [])) == 0
+        player_info = player_data.get("playerInfo", {})
+        stygian_difficulty = {3: "Hard", 4: "Menacing", 5: "Fearless", 6: "Dire"}.get(player_info.get("stygianIndex"),"Unknown")
         characters = session.execute(select(Character).where(Character.uid == uid)).scalars().all()
-        return render_template("characters.html", characters = characters)
+        return render_template("characters.html", characters = characters, showcase_empty = showcase_empty, player_info = player_info, stygian_difficulty = stygian_difficulty)
     else:
         characters = session.execute(select(Character)).scalars().all()
         return render_template("characters.html", characters=characters)
