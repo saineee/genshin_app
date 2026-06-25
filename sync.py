@@ -8,13 +8,13 @@ uid = "608344004"
 
 if __name__ == "__main__":
 
-    #Create session object
+    # Create session object
     session = Session()
 
     player_data = fetch_player_data(uid)
 
     for character in player_data['avatarInfoList']:
-        char_data = parse_character(character,uid)
+        char_data = parse_character(character, uid)
         character_id = insert_character(session, char_data)
         all_artifact_data = parse_artifacts(character)
         for artifact in all_artifact_data:
