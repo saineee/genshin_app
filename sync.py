@@ -94,32 +94,31 @@ if __name__ == "__main__":
     #Calls insert_character function with all the data from each character
     characters = data['avatarInfoList']
 
-    for character in characters: #For loop to loop through character's weapon
+    for character in characters:
+
+        #pull weapon id from api
         for item in character['equipList']:
             if item['flat']['itemType'] == 'ITEM_WEAPON':
                 weapon = item
 
-        #talent values
+        #character stat details
         talent_values = list(character['skillLevelMap'].values())
         talent_na = talent_values[0]
         talent_skill = talent_values[1]
         talent_burst = talent_values[2]
         avatar_id = character['avatarId']
-
-        #add constellation talent bonuses if applicable
         na_bonus, skill_bonus, burst_bonus = get_constellation_bonuses(character, avatar_id, SKILL_REFERENCE)
         talent_na += na_bonus
         talent_skill += skill_bonus
         talent_burst += burst_bonus
-
         friendship_lvl = character['fetterInfo']['expLevel']
         weapon_refinement = list(weapon['weapon']['affixMap'].values())[0] + 1
         weapon_name = LOC_DATA.get(weapon['flat']['nameTextMapHash'], "Unknown")
         name_hash = SKILL_REFERENCE.get(str(avatar_id), {}).get("NameTextMapHash")
         name = LOC_DATA.get(str(name_hash), "Unknown")
         side_icon = SKILL_REFERENCE.get(str(avatar_id), {}).get("SideIconName", "")
-        icon_url = f"https://enka.network/ui/{side_icon.replace('Side_', '')}.png" if side_icon else None
-
+        char_name = side_icon.replace("UI_AvatarIcon_Side_", "") if side_icon else None
+        icon_url = f"https://enka.network/ui/UI_Gacha_AvatarImg_{char_name}.png" if char_name else None
         constellation_lvl = len(character['talentIdList'])
         level = character['propMap']['4001']['ival']
         hp = int(character['fightPropMap'][STAT_KEYS["hp"]])
@@ -129,11 +128,7 @@ if __name__ == "__main__":
         crit_dmg = round(character['fightPropMap'][STAT_KEYS["crit_dmg"]] * 100, 1)
         em = int(character['fightPropMap'][STAT_KEYS["em"]])
         er = int(character['fightPropMap'][STAT_KEYS["er"]] * 100)
-
-        #grab the highest dmg bonus from fightPropMap
         dmg_bonus_type, dmg_bonus_key = max(DMG_BONUS_KEYS.items(), key=lambda item: character['fightPropMap'].get(item[1], 0))
-
-        #search for actual value of the bonus_dmg using the key
         dmg_bonus_val = round(character['fightPropMap'].get(dmg_bonus_key, 0) * 100, 1)
 
         #call insert_character function and store character_id so we know who has the artifact
