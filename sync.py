@@ -4,7 +4,6 @@ from db_ops import insert_character, insert_artifact
 from enka_client import fetch_player_data
 from parsers import parse_character, parse_artifacts
 
-#Sets player's UID and the enka network url we're doing API calls from
 uid = "608344004"
 
 if __name__ == "__main__":
