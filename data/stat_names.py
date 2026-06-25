@@ -1,4 +1,4 @@
-#Stat names key
+# Stat names key
 STAT_NAMES = {
     'FIGHT_PROP_HP': 'Flat HP',
     'FIGHT_PROP_ATTACK': 'Flat ATK',

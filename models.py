@@ -2,7 +2,8 @@ from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from db import Base
 from sqlalchemy.orm import relationship
 
-#Define Character class, connects to the character table in postgre
+
+# Define Character class, connects to the character table in postgre
 class Character(Base):
     __tablename__ = "characters"
 
@@ -27,10 +28,11 @@ class Character(Base):
     talent_burst = Column(Integer)
     friendship_lvl = Column(Integer)
     dmg_bonus_type = Column(String)
-    dmg_bonus_val =  Column(Float)
+    dmg_bonus_val = Column(Float)
     icon_url = Column(String)
 
-#Define artifact class, connects to the artifact table in postgre
+
+# Define artifact class, connects to the artifact table in postgre
 class Artifact(Base):
     __tablename__ = "artifacts"
 

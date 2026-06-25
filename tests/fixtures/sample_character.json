@@ -1,0 +1,64 @@
+{"equipList" : [
+  {"flat": {"nameTextMapHash": "177591468",
+"itemType": "ITEM_RELIQUARY",
+"equipType":"EQUIP_BRACER",
+"setNameTextMapHash": "2512309395",
+"reliquarySubstats":
+  [{"appendPropId": "FIGHT_PROP_CRITICAL_HURT", "statValue": 22.5},
+  {"appendPropId": "FIGHT_PROP_ATTACK_PERCENT", "statValue": 13.6},
+  {"appendPropId": "FIGHT_PROP_CHARGE_EFFICIENCY", "statValue": 5.2},
+  {"appendPropId": "FIGHT_PROP_CRITICAL", "statValue": 4.1}],
+"reliquaryMainstat": {"mainPropId": "FIGHT_PROP_HP", "statValue": 4780}}},
+
+  {"flat" : {"nameTextMapHash": "177591468",
+"itemType": "ITEM_RELIQUARY",
+"equipType":"EQUIP_NECKLACE",
+"setNameTextMapHash": "2512309395",
+"reliquarySubstats":
+  [{"appendPropId": "FIGHT_PROP_CRITICAL_HURT", "statValue": 22.5},
+  {"appendPropId": "FIGHT_PROP_ATTACK_PERCENT", "statValue": 13.6},
+  {"appendPropId": "FIGHT_PROP_CHARGE_EFFICIENCY", "statValue": 5.2},
+  {"appendPropId": "FIGHT_PROP_CRITICAL", "statValue": 4.1}],
+"reliquaryMainstat": {"mainPropId": "FIGHT_PROP_ATTACK", "statValue": 311}}},
+
+  {"flat": {"nameTextMapHash": "177591468",
+"itemType": "ITEM_RELIQUARY",
+"equipType":"EQUIP_SHOES",
+"setNameTextMapHash": "2512309395",
+"reliquarySubstats":
+  [{"appendPropId": "FIGHT_PROP_CRITICAL_HURT", "statValue": 22.5},
+  {"appendPropId": "FIGHT_PROP_ATTACK_PERCENT", "statValue": 13.6},
+  {"appendPropId": "FIGHT_PROP_CHARGE_EFFICIENCY", "statValue": 5.2},
+  {"appendPropId": "FIGHT_PROP_CRITICAL", "statValue": 4.1}],
+"reliquaryMainstat": {"mainPropId": "FIGHT_PROP_ATTACK_PERCENT", "statValue": 46.6}}},
+
+{"flat": {"nameTextMapHash": "177591468",
+"itemType": "ITEM_RELIQUARY",
+"equipType":"EQUIP_RING",
+"setNameTextMapHash": "2512309395",
+"reliquarySubstats":
+  [{"appendPropId": "FIGHT_PROP_CRITICAL_HURT", "statValue": 22.5},
+  {"appendPropId": "FIGHT_PROP_ATTACK_PERCENT", "statValue": 13.6},
+  {"appendPropId": "FIGHT_PROP_CHARGE_EFFICIENCY", "statValue": 5.2},
+  {"appendPropId": "FIGHT_PROP_CRITICAL", "statValue": 4.1}],
+"reliquaryMainstat": {"mainPropId": "FIGHT_PROP_ELEC_ADD_HURT", "statValue": 46.6}}},
+
+{"flat": {"nameTextMapHash": "177591468",
+"itemType": "ITEM_RELIQUARY",
+"equipType":"EQUIP_DRESS",
+"setNameTextMapHash": "2512309395",
+"reliquarySubstats":
+  [{"appendPropId": "FIGHT_PROP_CRITICAL_HURT", "statValue": 22.5},
+  {"appendPropId": "FIGHT_PROP_ATTACK_PERCENT", "statValue": 13.6},
+  {"appendPropId": "FIGHT_PROP_CHARGE_EFFICIENCY", "statValue": 5.2},
+  {"appendPropId": "FIGHT_PROP_CRITICAL", "statValue": 4.1}],
+"reliquaryMainstat": {"mainPropId": "FIGHT_PROP_CRITICAL", "statValue": 31.1}}},
+
+  {"weapon": {"affixMap": {"111509": 0}},"flat":
+  {"nameTextMapHash": "4124851547",
+    "itemType":  "ITEM_WEAPON",
+    "weaponStats":
+    [{"appendPropId": "FIGHT_PROP_BASE_ATTACK", "statValue": 674},
+    {"appendPropId": "FIGHT_PROP_CRITICAL_HURT", "statValue": 44.1}
+    ]}}
+]}
