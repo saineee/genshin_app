@@ -16,6 +16,8 @@ if __name__ == "__main__":
     for character in player_data['avatarInfoList']:
         char_data = parse_character(character, uid)
         character_id = insert_character(session, char_data)
+        if character_id is None:
+            continue
         all_artifact_data = parse_artifacts(character)
         for artifact in all_artifact_data:
             try:
