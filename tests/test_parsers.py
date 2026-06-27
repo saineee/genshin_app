@@ -37,6 +37,27 @@ class TestParserArtifacts:
                 if sub in artifact:
                     assert isinstance(artifact[sub], (float, int))
 
+    def test_all_five_slots_present(self, sample_character):
+        req_slots = ["Flower", "Feather", "Sands", "Goblet", "Circlet"]
+        parsed_artifacts = parse_artifacts(sample_character)
+
+        found_slots = [artifact["slot"] for artifact in parsed_artifacts]
+        for slot in req_slots:
+            assert found_slots.count(slot) == 1
+
+    def test_main_stat_is_string(self, sample_character):
+        parsed_artifacts = parse_artifacts(sample_character)
+        for artifact in parsed_artifacts:
+            assert isinstance(artifact["main_stat"], str)
+
+    def test_substat_names_are_strings(self, sample_character):
+            substats = ["sub1", "sub2", "sub3", "sub4"]
+            parsed_artifacts = parse_artifacts(sample_character)
+            for artifact in parsed_artifacts:
+                for sub in substats:
+                    if sub in artifact:
+                        assert isinstance(artifact[sub], str)
+
 
 class TestParseArtifactsEdgeCases:
 
