@@ -1,7 +1,7 @@
 from sqlalchemy.exc import IntegrityError
 from models import Character, Artifact
 from sqlalchemy.dialects.postgresql import insert as pg_insert
-from sqlalchemy import delete
+from sqlalchemy import delete, select
 import logger  # configures root logger
 import logging
 
@@ -116,3 +116,10 @@ def upsert_artifact(session, artifacts, character_id):
                                 sub4_val=artifact["sub4_val"])
         session.add(new_artifact)
     session.commit()
+
+
+# retrieve uid associated artifacts for pandas optimizer
+def retrieve_artifact(session, uid):
+    stmt = select(Artifact).join(Character).where(Character.uid == uid)
+    result = session.execute(stmt)
+    return result.scalars().all()
