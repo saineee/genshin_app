@@ -75,20 +75,28 @@ def parse_artifacts(character):
             sub4 = STAT_NAMES.get(sub_stats[3]['appendPropId'], "Unknown") if len(sub_stats) > 3 else None
             sub4_val = sub_stats[3].get('statValue', 0) if len(sub_stats) > 3 else None
 
-            artifacts.append({
+            temp_artifact = {
                 'slot': slot,
                 'set_name': set_name,
                 'main_stat': main_stat,
                 'main_stat_val': main_stat_val,
                 'sub1': sub1,
                 'sub1_val': sub1_val,
-                'sub2': sub2,
-                'sub2_val': sub2_val,
-                'sub3': sub3,
-                'sub3_val': sub3_val,
-                'sub4': sub4,
-                'sub4_val': sub4_val,
-            })
+            }
+
+            # check if keypair for sub2,3,4 exist. worst case: 3-star artifact might have 1 substat only
+            if sub2 is not None:
+                temp_artifact['sub2'] = sub2
+                temp_artifact['sub2_val'] = sub2_val
+            if sub3 is not None:
+                temp_artifact['sub3'] = sub3
+                temp_artifact['sub3_val'] = sub3_val
+            if sub4 is not None:
+                temp_artifact['sub4'] = sub4
+                temp_artifact['sub4_val'] = sub4_val
+
+
+            artifacts.append(temp_artifact)
 
     return artifacts
 

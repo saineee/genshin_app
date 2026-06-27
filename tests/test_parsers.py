@@ -1,6 +1,7 @@
 from models import Artifact
 from parsers import parse_artifacts
 
+
 class TestParserArtifacts:
 
     def test_returns_a_list(self, sample_character):
@@ -35,3 +36,14 @@ class TestParserArtifacts:
             for sub in subs:
                 if sub in artifact:
                     assert isinstance(artifact[sub], (float, int))
+
+
+class TestParseArtifactsEdgeCases:
+
+    def test_flower_with_two_substats(self, edge_case_character):
+        edge_case_artifact = parse_artifacts(edge_case_character)
+        assert len(edge_case_artifact) == 1
+        assert "sub1" in edge_case_artifact[0]
+        assert "sub1_val" in edge_case_artifact[0]
+        assert "sub3" not in edge_case_artifact[0]
+        assert "sub3_val" not in edge_case_artifact[0]
