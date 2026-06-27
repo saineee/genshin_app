@@ -77,3 +77,13 @@ class TestParseCharacter:
                    "constellation_lvl", "talent_na", "talent_skill", "talent_burst", "friendship_lvl", "dmg_bonus_val"]
         for property in present:
             assert isinstance(parsed_character[property], (int, float))
+
+    def test_string_fields_are_strings(self, parsed_character):
+        present = ["uid", "name", "weapon_name", "dmg_bonus_type", "icon_url"]
+        for property in present:
+            assert isinstance(parsed_character[property], str)
+
+    def test_talent_levels_are_positive(self, parsed_character):
+        positive_only = ["talent_na", "talent_skill", "talent_burst"]
+        for property in positive_only:
+            assert parsed_character[property] > 0
