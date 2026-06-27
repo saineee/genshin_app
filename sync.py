@@ -12,7 +12,6 @@ if __name__ == "__main__":
     session = Session()
 
     player_data = fetch_player_data(uid)
-
     for character in player_data['avatarInfoList']:
         char_data = parse_character(character, uid)
         character_id = insert_character(session, char_data)
