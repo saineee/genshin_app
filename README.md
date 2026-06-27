@@ -19,13 +19,14 @@ A personal Genshin Impact character build tracker that pulls live data from the 
 - Flask web view with three-column card layout: character portrait, stats panel, artifact mini-cards
 - Tailwind CSS with custom dark theme (void-bg, abyss-card, electro palette) and Rajdhani font
 - Robust error handling for network failures, missing fetterInfo, empty affixMap, missing substats, empty showcases, and new accounts
+- pytest unit tests for parsers and DB operations
+- Pydantic validation on API response data
 
 ## Planned Features
 
 - Pandas-powered artifact optimizer for maximum DPS
-- pytest unit tests for parsers and DB operations
-- Pydantic validation on API response data
-- AWS deployment
+- Docker + AWS deployment
+- Homepage with navigation
 
 ## Tech Stack
 
@@ -37,7 +38,9 @@ A personal Genshin Impact character build tracker that pulls live data from the 
 - Tailwind CSS
 - Requests
 - python-dotenv
-- Pandas (planned)
+- pytest
+- Pydantic
+- Pandas
 
 ## Project Structure
 
@@ -47,17 +50,25 @@ genshin_app/
 ├── sync.py                 # Pipeline orchestrator (CLI entry point)
 ├── enka_client.py          # enka.network API calls
 ├── parsers.py              # Data extraction and transformation
-├── db_ops.py               # Database upsert operations
+├── db_ops.py               # Database insert/upsert operations
 ├── db.py                   # SQLAlchemy engine and session
 ├── models.py               # ORM models (Character, Artifact)
+├── schemas.py              # Pydantic validation schemas
+├── logger.py               # Root logger configuration
+├── data/
+│   ├── game_data.py        # Loads loc.json and character_skills.json
+│   ├── character_skills.json
+│   ├── loc.json
+│   ├── stat_keys.py
+│   └── stat_names.py
 ├── templates/
 │   └── characters.html     # Character card UI
-└── data/
-    ├── game_data.py        # Loads loc.json and character_skills.json
-    ├── character_skills.json
-    ├── loc.json
-    ├── stat_keys.py
-    └── stat_names.py
+└── tests/
+    ├── conftest.py
+    ├── test_parsers.py
+    └── fixtures/
+        ├── sample_character.json
+        └── edge_case_character.json
 ```
 
 ## Setup
