@@ -126,7 +126,7 @@ def parse_character(character, uid):
     char_name = side_icon.replace("UI_AvatarIcon_Side_", "") if side_icon else None
     icon_url = f"https://enka.network/ui/UI_Gacha_AvatarImg_{char_name}.png" if char_name else None
     constellation_lvl = len(character.get('talentIdList', []))
-    level = character['propMap'].get('4001', {}).get('ival', 1)
+    level = int(character['propMap'].get('4001', {}).get('ival', 1))
     hp = int(character['fightPropMap'][STAT_KEYS["hp"]])
     atk = int(character['fightPropMap'][STAT_KEYS["atk"]])
     defense = int(character['fightPropMap'][STAT_KEYS["def"]])
