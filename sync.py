@@ -7,13 +7,13 @@ from pydantic import ValidationError
 from schemas import CharacterSchema, ArtifactSchema
 import logger  # configures root logger
 import logging
-
+import sys
 log = logging.getLogger(__name__)
 
-uid = "608344004"
-
 if __name__ == "__main__":
-
+    
+    # Test uid
+    uid = sys.argv[1]
     # Create session object
     session = Session()
 
