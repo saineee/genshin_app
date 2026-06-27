@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional
 
+
 class CharacterSchema(BaseModel):
     uid: str
     avatar_id: int
@@ -23,6 +24,7 @@ class CharacterSchema(BaseModel):
     dmg_bonus_type: str
     dmg_bonus_val: float
     icon_url: Optional[str] = None
+
 
 class ArtifactSchema(BaseModel):
     slot: str

@@ -1,5 +1,9 @@
 import requests
 from requests.exceptions import Timeout, ConnectionError, HTTPError
+import logger  # configures root logger
+import logging
+
+log = logging.getLogger(__name__)
 
 
 def fetch_player_data(uid):
@@ -10,15 +14,15 @@ def fetch_player_data(uid):
         response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
         data = response.json()
-        print(data)
+        log.info(f"Successfully fetched player data for UID: {uid}")
     except Timeout as t:
-        print(f"enka.network took too long to respond: {t}")
+        log.error(f"enka.network took too long to respond: {t}")
         raise
     except ConnectionError as c:
-        print(f"Error connecting to enka.network: {c}")
+        log.error(f"Error connecting to enka.network: {c}")
         raise
     except HTTPError as h:
-        print(f"enka.network responded with an error: {h}")
+        log.error(f"enka.network responded with an error: {h}")
         raise
 
     return data

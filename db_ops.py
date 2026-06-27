@@ -2,6 +2,10 @@ from sqlalchemy.exc import IntegrityError
 from models import Character, Artifact
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy import delete
+import logger  # configures root logger
+import logging
+
+log = logging.getLogger(__name__)
 
 
 def insert_character(session, character_data):
@@ -24,11 +28,11 @@ def insert_character(session, character_data):
     # check if character has already been inserted in database with same uid
     except IntegrityError as e:
         session.rollback()
-        print(f"Duplicate character detected: {e}:")
+        log.error(f"Duplicate character detected: {e}:")
         return None
     except Exception as e:
         session.rollback()
-        print(f"Error inserting character: {e}")
+        log.error(f"Error inserting character: {e}")
         return None
 
 
@@ -96,7 +100,7 @@ def upsert_character(session, character_data):
         return result.scalar()
     except Exception as e:
         session.rollback()
-        print(f"Error upserting character: {e}")
+        log.error(f"Error upserting character: {e}")
         return None
 
 
