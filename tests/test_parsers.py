@@ -1,6 +1,3 @@
-import pytest
-from parsers import parse_artifacts, parse_character
-
 class TestParserArtifacts:
 
     def test_returns_a_list(self, parsed_artifacts):
