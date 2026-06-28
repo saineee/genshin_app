@@ -6,18 +6,36 @@ from db_ops import retrieve_artifact, get_character
 from models import Character
 
 BUILD_WEIGHTS = {
-    "crit_atk": {"Crit Rate" : 2, "Crit DMG": 1, "ATK%": 0.75, "Flat ATK": .15},
+    "crit_atk": {"Crit Rate": 2, "Crit DMG": 1, "ATK%": 0.75, "Flat ATK": .15},
     "crit_em_atk": {"Crit Rate": 2, "Crit DMG": 1, "Elemental Mastery": .3, "ATK%": .75, "Flat ATK": .15},
-    "crit_er": {"Crit Rate": 2, "Crit DMG": 1, "Energy Recharge": 1, "ATK%": 0.75, "Flat ATK": .15 },
+    "crit_er": {"Crit Rate": 2, "Crit DMG": 1, "Energy Recharge": 1, "ATK%": 0.75, "Flat ATK": .15},
     "crit_hp": {"Crit Rate": 2, "Crit DMG": 1, "HP%": .75, "Flat HP": .15, "Elemental Mastery": .3},
     "crit_def": {"Crit Rate": 2, "Crit DMG": 1, "DEF%": .75, "Flat DEF": .15, "Elemental Mastery": .3},
 }
 
 VALID_MAIN_STATS = {
-    "Circlet": ["Crit Rate", "Crit DMG", "ATK%", "DEF%", "HP%"],
-    "Sands": ["ATK%", "HP%", "DEF%", "Energy Recharge", "Elemental Mastery"],
-    "Goblet": ["ATK%", "HP%", "DEF%"]
+    "crit_atk":
+        {"Circlet": ["Crit Rate", "Crit DMG", "ATK%"],
+         "Sands": ["ATK%", ],
+         "Goblet": ["ATK%"]},
+    "crit_em_atk":
+        {"Circlet": ["Crit Rate", "Crit DMG", "ATK%"],
+         "Sands": ["ATK%", "Elemental Mastery"],
+         "Goblet": ["ATK%"]},
+    "crit_er":
+        {"Circlet": ["Crit Rate", "Crit DMG", "ATK%"],
+         "Sands": ["Energy Recharge"],
+         "Goblet": ["ATK%"]},
+    "crit_hp":
+        {"Circlet": ["Crit Rate", "Crit DMG", "HP%"],
+         "Sands": ["HP%", "Elemental Mastery"],
+         "Goblet": ["HP%"]},
+    "crit_def":
+        {"Circlet": ["Crit Rate", "Crit DMG", "DEF%"],
+         "Sands": ["DEF%"],
+         "Goblet": ["DEF%"]}
 }
+
 
 def build_dataframe(artifacts):
     return pd.DataFrame(artifacts)
@@ -54,6 +72,7 @@ def individual_score(artifact, weights):
             score += weights[sub_slot] * sub_val
     return score
 
+
 # combines all weighted substats into a score value per artifact, for specified build type
 def score_artifacts(artifacts, build_type):
     build_weights = BUILD_WEIGHTS[build_type]
@@ -66,23 +85,26 @@ def score_artifacts(artifacts, build_type):
     artifacts["score"] = score1.fillna(0) + score2.fillna(0) + score3.fillna(0) + score4.fillna(0)
     return artifacts
 
+
 def best_combination(artifacts):
     best_artifacts = artifacts.groupby("slot")["score"].idxmax()
     return artifacts.loc[best_artifacts]
 
+
 def filter_main_stats(artifacts, dmg_bonus_type, build_type):
-    valid_stats = {slot: stats.copy() for slot, stats in VALID_MAIN_STATS.items()}
+    valid_stats = {slot: stats.copy() for slot, stats in VALID_MAIN_STATS[build_type].items()}
     valid_stats["Goblet"].append(dmg_bonus_type)
-    weights = BUILD_WEIGHTS.get(build_type, {})
-    
-
-
+    mask = artifacts.apply(
+        lambda row: True if row["slot"] in ["Flower", "Feather"] else row["main_stat"] in valid_stats.get(row["slot"],
+                                                                                                          []), axis=1)
+    return artifacts[mask]
 
 
 def optimize(session, uid, build_type, avatar_id):
     character = get_character(session, uid, avatar_id)
     dmg_bonus = character.dmg_bonus_type
-    artifacts = get_artifacts_df(session, uid)
+    artifact_df = get_artifacts_df(session, uid)
+    artifacts = filter_main_stats(artifact_df, dmg_bonus, build_type)
     scored_artifacts = score_artifacts(artifacts, build_type)
     best = best_combination(scored_artifacts)
     return best
