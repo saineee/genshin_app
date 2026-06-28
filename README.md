@@ -5,7 +5,7 @@ A personal Genshin Impact character build tracker that pulls live data from the 
 ## Current Features
 
 - Pulls live character data via enka.network API
-- UID input form — fetch any player's showcase on demand from the browser
+- UID input form: fetch any player's showcase on demand from the browser
 - Player profile card displaying nickname, AR, World Level, signature, achievements, Spiral Abyss floor/stars, Imaginarium Theater act/stars, and Stygian Onslaught difficulty/time
 - Stores full character stats (HP, ATK, DEF, Crit Rate, Crit DMG, EM, ER, DMG Bonus)
 - Tracks weapon name and refinement level
@@ -13,7 +13,7 @@ A personal Genshin Impact character build tracker that pulls live data from the 
 - Tracks constellation level and friendship level
 - Full artifact data per character (set, slot, main stat, all substats)
 - PostgreSQL relational database with SQLAlchemy ORM (characters + artifacts tables)
-- Upsert logic — refreshes existing characters and artifacts on each fetch
+- Upsert logic: refreshes existing characters and artifacts on each fetch
 - Modular pipeline: `enka_client` → `parsers` → `db_ops`, orchestrated by `sync`
 - Character display order stabilized by insertion ID
 - Flask web view with three-column card layout: character portrait, stats panel, artifact mini-cards
