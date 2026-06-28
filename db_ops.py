@@ -123,3 +123,9 @@ def retrieve_artifact(session, uid):
     stmt = select(Artifact).join(Character).where(Character.uid == uid)
     result = session.execute(stmt)
     return result.scalars().all()
+
+
+def get_character(session, uid, avatar_id):
+    stmt = select(Character).where(Character.avatar_id == avatar_id,Character.uid == uid)
+    character = session.execute(stmt).scalar()
+    return character

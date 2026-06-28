@@ -1,6 +1,9 @@
 import pandas as pd
+from select import select
+
 from db import Session
-from db_ops import retrieve_artifact
+from db_ops import retrieve_artifact, get_character
+from models import Character
 
 BUILD_WEIGHTS = {
     "crit_atk": {"Crit Rate" : 2, "Crit DMG": 1, "ATK%": 0.75, "Flat ATK": .15},
@@ -8,6 +11,12 @@ BUILD_WEIGHTS = {
     "crit_er": {"Crit Rate": 2, "Crit DMG": 1, "Energy Recharge": 1, "ATK%": 0.75, "Flat ATK": .15 },
     "crit_hp": {"Crit Rate": 2, "Crit DMG": 1, "HP%": .75, "Flat HP": .15, "Elemental Mastery": .3},
     "crit_def": {"Crit Rate": 2, "Crit DMG": 1, "DEF%": .75, "Flat DEF": .15, "Elemental Mastery": .3},
+}
+
+VALID_MAIN_STATS = {
+    "Circlet": ["Crit Rate", "Crit DMG", "ATK%", "DEF%", "HP%"],
+    "Sands": ["ATK%", "HP%", "DEF%", "Energy Recharge", "Elemental Mastery"],
+    "Goblet": ["ATK%", "HP%", "DEF%"]
 }
 
 def build_dataframe(artifacts):
@@ -61,7 +70,18 @@ def best_combination(artifacts):
     best_artifacts = artifacts.groupby("slot")["score"].idxmax()
     return artifacts.loc[best_artifacts]
 
-def optimize(session, uid, build_type):
+def filter_main_stats(artifacts, dmg_bonus_type, build_type):
+    valid_stats = {slot: stats.copy() for slot, stats in VALID_MAIN_STATS.items()}
+    valid_stats["Goblet"].append(dmg_bonus_type)
+    weights = BUILD_WEIGHTS.get(build_type, {})
+    
+
+
+
+
+def optimize(session, uid, build_type, avatar_id):
+    character = get_character(session, uid, avatar_id)
+    dmg_bonus = character.dmg_bonus_type
     artifacts = get_artifacts_df(session, uid)
     scored_artifacts = score_artifacts(artifacts, build_type)
     best = best_combination(scored_artifacts)
