@@ -1,0 +1,18 @@
+services:
+  web:
+    build: .
+    ports: ["5000:5000"]
+    environment:
+    - DATABASE_URL=postgresql://paul:7285@db:5432/genshindb
+    depends_on:
+      - db
+  db:
+    image: postgres:15
+    environment:
+    - POSTGRES_USER=paul
+    - POSTGRES_PASSWORD=7285
+    - POSTGRES_DB=genshindb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:
