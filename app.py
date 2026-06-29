@@ -1,3 +1,4 @@
+import pandas as pd
 from flask import Flask, render_template, request, redirect
 from models import Character
 from db import Session
@@ -51,6 +52,9 @@ def characters():
         selected_avatar_id = None
         if build_type is not None:
             optimizations = optimize(session, uid, build_type, avatar_id)
+            slot_order = ["Flower", "Feather", "Sands", "Goblet", "Circlet"]
+            optimizations["slot"] = pd.Categorical(optimizations["slot"], categories=slot_order, ordered=True)
+            optimizations = optimizations.sort_values("slot")
             optimizations = optimizations.to_dict(orient="records")
         selected_avatar_id = avatar_id
 
