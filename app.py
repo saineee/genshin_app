@@ -3,6 +3,7 @@ from models import Character
 from db import Session
 from sqlalchemy import select
 from enka_client import fetch_player_data
+from optimizer import optimize
 from parsers import parse_character, parse_artifacts
 from db_ops import insert_character, insert_artifact, upsert_character, upsert_artifact
 from requests.exceptions import Timeout, ConnectionError, HTTPError
@@ -42,11 +43,21 @@ def characters():
         characters = session.execute(
             select(Character).where(Character.uid == uid).order_by(Character.id)
         ).scalars().all()
+
+        build_type = request.form.get("build_type")
+        avatar_id = request.form.get("avatar_id")
+        avatar_id = int(avatar_id) if avatar_id else None
+        optimizations = None
+        selected_avatar_id = None
+        if build_type is not None:
+            optimizations = optimize(session, uid, build_type, avatar_id)
+            optimizations = optimizations.to_dict(orient="records")
+        selected_avatar_id = avatar_id
+
         return render_template("characters.html", characters=characters, showcase_empty=showcase_empty,
-                               player_info=player_info, stygian_difficulty=stygian_difficulty)
+                               player_info=player_info, stygian_difficulty=stygian_difficulty, uid=uid, optimizations=optimizations, selected_avatar_id=selected_avatar_id)
     else:
         return redirect("/")
-
 
 if __name__ == "__main__":
     app.run(debug=True)

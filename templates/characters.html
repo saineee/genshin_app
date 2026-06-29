@@ -3,225 +3,324 @@
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-    ::-webkit-scrollbar {
-        width: 6px;
-    }
-    ::-webkit-scrollbar-track {
-        background: #0a0a0f;
-    }
-    ::-webkit-scrollbar-thumb {
-        background: #7b2fbe;
-        border-radius: 3px;
-    }
-</style>
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0f;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #7b2fbe;
+            border-radius: 3px;
+        }
+    </style>
     <script>
-    tailwind.config = {
-        theme: {
-            extend: {
-                colors: {
-                    'void-bg': '#0a0a0f',
-                    'abyss-card': '#1a1a2e',
-                    'electro': '#7b2fbe',
-                    'electro-light': '#9d4edd',
-                },
-                fontFamily: {
-                    'rajdhani': ['Rajdhani', 'sans-serif'],
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'void-bg': '#0a0a0f',
+                        'abyss-card': '#1a1a2e',
+                        'electro': '#7b2fbe',
+                        'electro-light': '#9d4edd',
+                    },
+                    fontFamily: {
+                        'rajdhani': ['Rajdhani', 'sans-serif'],
+                    }
                 }
             }
         }
-    }
-</script>
+    </script>
     <title>
         Genshin Build Tracker
     </title>
 </head>
-<body class="text-gray-200 p-5 font-rajdhani font-semibold min-h-screen" style="background: radial-gradient(ellipse at top, #3a0a6e 0%, #0a0a0f 100%);">
-    <h1 class="text-4xl font-bold text-white mb-8 tracking-widest text-center">
-        Genshin Build Tracker
-    </h1>
-    <div class="flex justify-center mb-6">
+<body class="text-gray-200 p-5 font-rajdhani font-semibold min-h-screen"
+      style="background: radial-gradient(ellipse at top, #3a0a6e 0%, #0a0a0f 100%);">
+<h1 class="text-4xl font-bold text-white mb-8 tracking-widest text-center">
+    Genshin Build Tracker
+</h1>
+<div class="flex justify-center mb-6">
     <form method="POST" action="/characters">
-        <input type="text" name="uid" placeholder="Enter UID:" class="text-center placeholder-gray-500 rounded-full bg-gray-900 text-white border-2 border-white px-6 py-2 w-96 outline-none focus:border-white">
+        <input type="text" name="uid" placeholder="Enter UID:"
+               class="text-center placeholder-gray-500 rounded-full bg-gray-900 text-white border-2 border-white px-6 py-2 w-96 outline-none focus:border-white">
     </form>
+</div>
+{% if error %}
+<div class="text-center text-red-400 bg-black/30 border border-red-800 rounded-lg px-6 py-3 mx-auto w-fit mb-4 text-sm">
+    {{ error }}
+</div>
+{% endif %}
+{% if player_info %}
+<div class="bg-abyss-card rounded-lg border-2 border-white flex mx-auto w-fit mb-6">
+    <div class="p-6 flex flex-col justify-center border-r border-gray-600">
+        <p class="font-bold text-lg">{{ player_info.nickname }}</p>
+        <p class="text-md">AR {{ player_info.level }} · WL {{ player_info.worldLevel | default(0) }}</p>
+        <p class="italic text-gray-400">{{ player_info.signature | default('') }}</p>
     </div>
-    {% if error %}
-        <div class="text-center text-red-400 bg-black/30 border border-red-800 rounded-lg px-6 py-3 mx-auto w-fit mb-4 text-sm">
-            {{ error }}
-        </div>
-    {% endif %}
-    {% if player_info %}
-    <div class="bg-abyss-card rounded-lg border-2 border-white flex mx-auto w-fit mb-6">
-        <div class="p-6 flex flex-col justify-center border-r border-gray-600">
-            <p class="font-bold text-lg">{{ player_info.nickname }}</p>
-            <p class="text-md">AR {{ player_info.level }} · WL {{ player_info.worldLevel | default(0) }}</p>
-            <p class="italic text-gray-400">{{ player_info.signature | default('') }}</p>
-        </div>
-        <div class="p-6 flex flex-col justify-center gap-2 border-r border-gray-600">
-            <p>{{ player_info.get('finishAchievementNum', 0) }} Total Achievements</p>
-            {% if player_info.towerFloorIndex is defined and player_info.towerFloorIndex %}
-            <p>{{ player_info.towerFloorIndex }}-{{ player_info.towerLevelIndex }} | {{ player_info.towerStarIndex }} ★ Spiral Abyss</p>
-            {% endif %}
-        </div>
+    <div class="p-6 flex flex-col justify-center gap-2 border-r border-gray-600">
+        <p>{{ player_info.get('finishAchievementNum', 0) }} Total Achievements</p>
+        {% if player_info.towerFloorIndex is defined and player_info.towerFloorIndex %}
+        <p>{{ player_info.towerFloorIndex }}-{{ player_info.towerLevelIndex }} | {{ player_info.towerStarIndex }} ★
+            Spiral Abyss</p>
+        {% endif %}
+    </div>
+    {% if player_info.stygianSeconds is defined and player_info.stygianSeconds %}
+    <div class="p-6 flex flex-col justify-center gap-2 w-fit">
+        {% if player_info.theaterActIndex is defined and player_info.theaterActIndex %}
+        <p>Act {{ player_info.theaterActIndex }} | {{ player_info.theaterStarIndex }} ★ Imaginarium Theater</p>
+        {% endif %}
         {% if player_info.stygianSeconds is defined and player_info.stygianSeconds %}
-        <div class="p-6 flex flex-col justify-center gap-2 w-fit">
-            {% if player_info.theaterActIndex is defined and player_info.theaterActIndex %}
-            <p>Act {{ player_info.theaterActIndex }} | {{ player_info.theaterStarIndex }} ★ Imaginarium Theater</p>
-            {% endif %}
-            {% if player_info.stygianSeconds is defined and player_info.stygianSeconds %}
-            <p>{{ player_info.stygianSeconds }}s · {{ stygian_difficulty }} Stygian Onslaught</p>
-            {% endif %}
-        </div>
+        <p>{{ player_info.stygianSeconds }}s · {{ stygian_difficulty }} Stygian Onslaught</p>
         {% endif %}
     </div>
     {% endif %}
-    <div class="flex gap-3 justify-center mb-6">
-        {% for character in characters %}
-        <button onclick="showCharacter({{ loop.index0 }})">
-            <div class="flex flex-col items-center cursor-pointer">
-                <div class="inline-flex rounded-full border-2 border-white p-0.5 overflow-hidden w-20 h-20">
-                    <img class="w-full h-full object-cover scale-150 -translate-y-4" src="{{ character.icon_url | replace('UI_Gacha_AvatarImg_', 'UI_AvatarIcon_Side_') if character.icon_url else ''}}">
-                </div>
+</div>
+{% endif %}
+<div class="flex gap-3 justify-center mb-6">
+    {% for character in characters %}
+    <button onclick="showCharacter({{ loop.index0 }})">
+        <div class="flex flex-col items-center cursor-pointer">
+            <div class="inline-flex rounded-full border-2 border-white p-0.5 overflow-hidden w-20 h-20">
+                <img class="w-full h-full object-cover scale-150 -translate-y-4"
+                     src="{{ character.icon_url | replace('UI_Gacha_AvatarImg_', 'UI_AvatarIcon_Side_') if character.icon_url else ''}}">
             </div>
-        </button>
-        {% endfor %}
-    </div>
-    {% if showcase_empty %}
-    <div class="text-center text-gray-400 mt-12 text-xl tracking-widest">
-        This player has no characters on showcase.
-    </div>
-    {% endif %}
-    <div>
-        {% for character in characters %}
-        <div id="character-{{ loop.index0 }}" class="bg-abyss-card rounded-lg p-5 mb-5 border-l-4 border-electro w-fit mx-auto" style="{% if not loop.first %}display:none{% endif %}">
-            <div class="flex gap-6 w-full">
-                <div class="w-96 h-[660px] rounded-lg overflow-hidden border border-electro" style="background-image: url('{{ character.icon_url }}'); background-size: auto 130%; background-position: center 20%; background-repeat: no-repeat;">
+        </div>
+    </button>
+    {% endfor %}
+</div>
+{% if showcase_empty %}
+<div class="text-center text-gray-400 mt-12 text-xl tracking-widest">
+    This player has no characters on showcase.
+</div>
+{% endif %}
+<div>
+    {% for character in characters %}
+    <div id="character-{{ loop.index0 }}"
+         class="bg-abyss-card rounded-lg p-5 mb-5 border-l-4 border-electro w-fit mx-auto"
+         style="{% if not loop.first %}display:none{% endif %}">
+        <div class="flex gap-6 w-full">
+            <div class="w-96 h-[660px] rounded-lg overflow-hidden border border-electro"
+                 style="background-image: url('{{ character.icon_url }}'); background-size: auto 130%; background-position: center 20%; background-repeat: no-repeat;">
+            </div>
+            <div class="w-72 flex-none border-r border-gray-600 pr-6 max-h-[660px] overflow-y-auto">
+                <div class="text-electro-light font-bold text-sm uppercase tracking-wider mb-2 mt-3">
+                    Character Details
                 </div>
-                <div class="w-72 flex-none border-r border-gray-600 pr-6 max-h-[660px] overflow-y-auto">
-                    <div class="text-electro-light font-bold text-sm uppercase tracking-wider mb-2 mt-3">
-                        Character Details
-                    </div>
-                    <div class="flex justify-between py-1 border-b border-gray-700">
+                <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">Character</span>
                     <span class="font-bold">{{ character.name }}</span>
-                    </div>
-                    <div class="flex justify-between py-1 border-b border-gray-700">
+                </div>
+                <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">Weapon</span>
                     <span class="truncate min-w-0 text-right font-bold">{{ character.weapon_name }}</span>
-                    </div>
-                    <div class="flex justify-between py-1 border-b border-gray-700">
+                </div>
+                <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">Level</span>
                     <span class="font-bold">{{ character.level}}</span>
-                    </div>
-                    <div class="flex justify-between py-1 border-b border-gray-700">
+                </div>
+                <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">Constellation</span>
                     <span class="font-bold">{{ character.constellation_lvl }}</span>
-                    </div>
-                    <div class="flex justify-between py-1 border-b border-gray-700">
+                </div>
+                <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">Friendship Level</span>
                     <span class="font-bold">{{ character.friendship_lvl }}</span>
-                    </div>
-                    <div class="flex justify-between py-1 border-b border-gray-700">
+                </div>
+                <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">UID</span>
                     <span class="font-bold">{{ character.uid }}</span>
-                    </div>
-                    <br>
-                    <div class="text-electro-light font-bold text-sm uppercase tracking-wider mb-2 mt-3">
-                        Stats:
-                    </div>
-                    <div class="flex justify-between py-1 border-b border-gray-700">
+                </div>
+                <br>
+                <div class="text-electro-light font-bold text-sm uppercase tracking-wider mb-2 mt-3">
+                    Stats
+                </div>
+                <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">HP</span>
                     <span class="font-bold">{{ character.hp }}</span>
-                    </div>
-                    <div class="flex justify-between py-1 border-b border-gray-700">
+                </div>
+                <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">ATK</span>
                     <span class="font-bold">{{ character.atk }}</span>
-                    </div>
-                    <div class="flex justify-between py-1 border-b border-gray-700">
+                </div>
+                <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">DEF</span>
                     <span class="font-bold">{{ character.def_ }}</span>
-                    </div>
-                    <div class="flex justify-between py-1 border-b border-gray-700">
+                </div>
+                <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">Elemental Mastery</span>
                     <span class="font-bold">{{ character.em }}</span>
-                    </div>
-                    <div class="flex justify-between py-1 border-b border-gray-700">
+                </div>
+                <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">Energy Recharge</span>
                     <span class="font-bold">{{ character.er }}%</span>
-                    </div>
-                    <div class="flex justify-between py-1 border-b border-gray-700">
+                </div>
+                <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">Crit Rate</span>
                     <span class="font-bold">{{ character.crit_rate }}%</span>
-                    </div>
-                    <div class="flex justify-between py-1 border-b border-gray-700">
+                </div>
+                <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">Crit DMG</span>
                     <span class="font-bold">{{ character.crit_dmg }}%</span>
-                    </div>
-                    {% if character.dmg_bonus_val and character.dmg_bonus_val > 0 %}
-                        <div class="flex justify-between py-1 border-b border-gray-700">
-                        <span class="text-gray-400">{{ character.dmg_bonus_type }} Bonus</span>
-                        <span class="font-bold">{{ character.dmg_bonus_val }}%</span>
-                        </div>
-                    {% endif %}
-                    <br>
-                    <div class="text-electro-light font-bold text-sm uppercase tracking-wider mb-2 mt-3">
-                        Talents
-                    </div>
-                    <div class="flex justify-between py-1 border-b border-gray-700">
+                </div>
+                {% if character.dmg_bonus_val and character.dmg_bonus_val > 0 %}
+                <div class="flex justify-between py-1 border-b border-gray-700">
+                    <span class="text-gray-400">{{ character.dmg_bonus_type }} Bonus</span>
+                    <span class="font-bold">{{ character.dmg_bonus_val }}%</span>
+                </div>
+                {% endif %}
+                <br>
+                <div class="text-electro-light font-bold text-sm uppercase tracking-wider mb-2 mt-3">
+                    Talents
+                </div>
+                <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">Normal Attack Level: </span>
                     <span class="font-bold">{{ character.talent_na }}</span>
-                    </div>
-                    <div class="flex justify-between py-1 border-b border-gray-700">
+                </div>
+                <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">Skill Level: </span>
                     <span class="font-bold">{{ character.talent_skill }}</span>
-                    </div>
-                    <div class="flex justify-between py-1 border-b border-gray-700">
+                </div>
+                <div class="flex justify-between py-1 border-b border-gray-700">
                     <span class="text-gray-400">Burst Level</span>
                     <span class="font-bold">{{ character.talent_burst }}</span>
-                    </div>
-                    <br>
                 </div>
-                <div class="w-96 flex-none overflow-y-auto max-h-[660px] flex flex-col">
+                <br>
+            </div>
+            <div class="w-96 flex-none overflow-y-auto max-h-[660px] flex flex-col">
                 <div class="text-electro-light font-bold text-sm uppercase tracking-wider mb-2 mt-3">
                     Artifacts
                 </div>
-                    {% if character.artifacts %}
-                    {% for artifact in character.artifacts %}
+                {% if character.artifacts %}
+                {% for artifact in character.artifacts %}
+                <div class="bg-gray-800 rounded-lg mb-1 p-2 border-l-2 border-electro flex gap-2 flex-1">
+                    <div class="flex flex-col justify-center w-36 flex-none items-center bg-gray-900 rounded">
+                        <!-- left side -->
+                        <div class="text-xs text-gray-400">{{ artifact.set_name }}</div>
+                        <div class="text-white text-md font-bold">{{ artifact.main_stat }}</div>
+                        <div class="text-white text-md font-bold">+{{ artifact.main_stat_val }}</div>
+                    </div>
+                    <div class="flex flex-1 gap-1"> <!-- right side -->
+                        <div class="flex flex-col flex-1 gap-1">
+                            <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">
+                                {{ artifact.sub1 }}+{{ artifact.sub1_val }}
+                            </div>
+                            <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">
+                                {{ artifact.sub3 }}+{{ artifact.sub3_val }}
+                            </div>
+                        </div>
+                        <div class="flex flex-col flex-1 gap-1">
+                            <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">
+                                {{ artifact.sub2 }}+{{ artifact.sub2_val }}
+                            </div>
+                            <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">
+                                {{ artifact.sub4 }}+{{ artifact.sub4_val }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p class="text-gray-500 italic text-sm mt-4">No artifacts equipped.</p>
+                {% endif %}
+            </div>
+            <div class="w-96 flex-none overflow-y-auto max-h-[660px] flex flex-col relative">
+                <div class="text-electro-light font-bold text-sm uppercase tracking-wider mb-2 mt-3">
+                    Optimizer
+                </div>
+                {% if not optimizations or character.avatar_id != selected_avatar_id %}
+                <div class="flex flex-col h-full">
+                <form action="/characters" method="POST" class="flex flex-col flex-1 mb-1">
+                    <input type="hidden" name="build_type" value="crit_atk">
+                    <input type="hidden" name="uid" value="{{ character.uid }}">
+                    <input type="hidden" name="avatar_id" value="{{ character.avatar_id }}">
+                    <button type="submit" class="text-center flex-1 w-full text-left bg-gray-800 rounded-lg p-3 border-l-2 border-electro text-white font-bold hover:bg-gray-700 block">Crit, ATK Build</button>
+                </form>
+                <form action="/characters" method="POST" class="flex flex-col flex-1 mb-1">
+                    <input type="hidden" name="build_type" value="crit_em_atk">
+                    <input type="hidden" name="uid" value="{{ character.uid }}">
+                    <input type="hidden" name="avatar_id" value="{{ character.avatar_id }}">
+                    <button type="submit" class="text-center flex-1 w-full text-left bg-gray-800 rounded-lg p-3 border-l-2 border-electro text-white font-bold hover:bg-gray-700 block">Crit, ATK, EM Build</button>
+                </form>
+                <form action="/characters" method="POST" class="flex flex-col flex-1 mb-1">
+                    <input type="hidden" name="build_type" value="crit_er">
+                    <input type="hidden" name="uid" value="{{ character.uid }}">
+                    <input type="hidden" name="avatar_id" value="{{ character.avatar_id }}">
+                    <button type="submit" class="text-center flex-1 w-full text-left bg-gray-800 rounded-lg p-3 border-l-2 border-electro text-white font-bold hover:bg-gray-700 block">Crit, ER Build</button>
+                </form>
+                <form action="/characters" method="POST" class="flex flex-col flex-1 mb-1">
+                    <input type="hidden" name="build_type" value="crit_hp">
+                    <input type="hidden" name="uid" value="{{ character.uid }}">
+                    <input type="hidden" name="avatar_id" value="{{ character.avatar_id }}">
+                    <button type="submit" class="text-center flex-1 w-full text-left bg-gray-800 rounded-lg p-3 border-l-2 border-electro text-white font-bold hover:bg-gray-700 block">Crit, HP Build</button>
+                </form>
+                <form action="/characters" method="POST" class="flex flex-col flex-1 mb-1">
+                    <input type="hidden" name="build_type" value="crit_def">
+                    <input type="hidden" name="uid" value="{{ character.uid }}">
+                    <input type="hidden" name="avatar_id" value="{{ character.avatar_id }}">
+                    <button type="submit" class="text-center flex-1 w-full text-left bg-gray-800 rounded-lg p-3 border-l-2 border-electro text-white font-bold hover:bg-gray-700 block">Crit, DEF Build</button>
+                </form>
+                    </div>
+                {% else %}
+                    {% if optimizations and character.avatar_id == selected_avatar_id %}
+                    <form action="/characters" method="POST" class="absolute top-2 right-2">
+                    <input type="hidden" name="uid" value="{{ character.uid }}">
+                        <input type="hidden" name="avatar_id" value="{{ character.avatar_id}}">
+                    <button type="submit" class="w-6 h-6 rounded-full bg-electro flex items-center justify-center hover:bg-electro-light">↺</button>
+                    </form>
+                    {% for artifact in optimizations %}
                     <div class="bg-gray-800 rounded-lg mb-1 p-2 border-l-2 border-electro flex gap-2 flex-1">
-                        <div class="flex flex-col justify-center w-36 flex-none items-center bg-gray-900 rounded"> <!-- left side -->
+                        <div class="flex flex-col justify-center w-36 flex-none items-center bg-gray-900 rounded">
+                            <!-- left side -->
                             <div class="text-xs text-gray-400">{{ artifact.set_name }}</div>
                             <div class="text-white text-md font-bold">{{ artifact.main_stat }}</div>
                             <div class="text-white text-md font-bold">+{{ artifact.main_stat_val }}</div>
                         </div>
                         <div class="flex flex-1 gap-1"> <!-- right side -->
                             <div class="flex flex-col flex-1 gap-1">
-                                <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">{{ artifact.sub1 }}+{{ artifact.sub1_val }}</div>
-                                <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">{{ artifact.sub3 }}+{{ artifact.sub3_val }}</div>
+                                <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">
+                                    {{ artifact.sub1 }}+{{ artifact.sub1_val }}
+                                </div>
+                                <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">
+                                    {{ artifact.sub3 }}+{{ artifact.sub3_val }}
+                                </div>
                             </div>
                             <div class="flex flex-col flex-1 gap-1">
-                                <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">{{ artifact.sub2 }}+{{ artifact.sub2_val }}</div>
-                                <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">{{ artifact.sub4 }}+{{ artifact.sub4_val }}</div>
+                                <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">
+                                    {{ artifact.sub2 }}+{{ artifact.sub2_val }}
+                                </div>
+                                <div class="text-white text-xs text-center bg-gray-900 rounded p-1 flex-1 flex items-center justify-center h-8 overflow-hidden">
+                                    {{ artifact.sub4 }}+{{ artifact.sub4_val }}
+                                </div>
                             </div>
                         </div>
                     </div>
                     {% endfor %}
-                    {% else %}
-                    <p class="text-gray-500 italic text-sm mt-4">No artifacts equipped.</p>
                     {% endif %}
-                </div>
+                {% endif %}
             </div>
         </div>
-        {% endfor %}
     </div>
+    {% endfor %}
+</div>
 <script>
     function showCharacter(index) {
-    document.querySelectorAll('[id^="character-"]').forEach(function(el) {
+    document.querySelectorAll('[id^="character-"]').forEach(function (el) {
         el.style.display = "none";
     });
     document.getElementById("character-" + index).style.display = "block";
 }
+{% if selected_avatar_id %}
+const avatarIds = {{ characters | map(attribute='avatar_id') | list | tojson }};
+const idx = avatarIds.indexOf({{ selected_avatar_id }});
+if (idx !== -1) showCharacter(idx);
+{% endif %}
 </script>
 </body>
 </html>
