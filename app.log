@@ -144,3 +144,80 @@ DETAIL:  Key (uid, avatar_id)=(608344004, 10000089) already exists.
 [SQL: INSERT INTO characters (uid, avatar_id, level, hp, atk, def, em, er, crit_rate, crit_dmg, name, constellation_lvl, weapon_name, weapon_refinement, talent_na, talent_skill, talent_burst, friendship_lvl, dmg_bonus_type, dmg_bonus_val, icon_url) VALUES (%(uid)s, %(avatar_id)s, %(level)s, %(hp)s, %(atk)s, %(def)s, %(em)s, %(er)s, %(crit_rate)s, %(crit_dmg)s, %(name)s, %(constellation_lvl)s, %(weapon_name)s, %(weapon_refinement)s, %(talent_na)s, %(talent_skill)s, %(talent_burst)s, %(friendship_lvl)s, %(dmg_bonus_type)s, %(dmg_bonus_val)s, %(icon_url)s) RETURNING characters.id]
 [parameters: {'uid': '608344004', 'avatar_id': 10000089, 'level': 90, 'hp': 36292, 'atk': 1242, 'def': 897, 'em': 39, 'er': 178, 'crit_rate': 49.9, 'crit_dmg': 229.2, 'name': 'Furina', 'constellation_lvl': 4, 'weapon_name': 'Unknown', 'weapon_refinement': 1, 'talent_na': 2, 'talent_skill': 10, 'talent_burst': 13, 'friendship_lvl': 10, 'dmg_bonus_type': 'Physical DMG', 'dmg_bonus_val': 0, 'icon_url': 'https://enka.network/ui/UI_Gacha_AvatarImg_Furina.png'}]
 (Background on this error at: https://sqlalche.me/e/20/gkpj):
+2026-06-28 19:51:43,654 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-06-28 19:51:43,655 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-06-28 19:51:43,657 - werkzeug - INFO -  * Restarting with stat
+2026-06-28 19:51:44,424 - werkzeug - WARNING -  * Debugger is active!
+2026-06-28 19:51:44,431 - werkzeug - INFO -  * Debugger PIN: 136-212-548
+2026-06-28 19:51:44,751 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 19:51:44] "GET / HTTP/1.1" 200 -
+2026-06-28 19:51:44,908 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 19:51:44] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-06-28 19:54:30,296 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-06-28 19:54:30,297 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-06-28 19:54:30,299 - werkzeug - INFO -  * Restarting with stat
+2026-06-28 19:54:31,060 - werkzeug - WARNING -  * Debugger is active!
+2026-06-28 19:54:31,064 - werkzeug - INFO -  * Debugger PIN: 136-212-548
+2026-06-28 19:54:31,311 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 19:54:31] "[33mGET / HTTP/1.1[0m" 404 -
+2026-06-28 19:54:37,928 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 19:54:37] "[33mGET / HTTP/1.1[0m" 404 -
+2026-06-28 19:54:42,041 - werkzeug - INFO -  * Detected change in '\\\\wsl.localhost\\Ubuntu\\home\\saine\\projects\\genshin_app\\app.py', reloading
+2026-06-28 19:54:42,096 - werkzeug - INFO -  * Restarting with stat
+2026-06-28 19:54:42,879 - werkzeug - WARNING -  * Debugger is active!
+2026-06-28 19:54:42,883 - werkzeug - INFO -  * Debugger PIN: 136-212-548
+2026-06-28 19:54:42,979 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 19:54:42] "GET / HTTP/1.1" 200 -
+2026-06-28 19:56:29,429 - werkzeug - INFO -  * Detected change in '\\\\wsl.localhost\\Ubuntu\\home\\saine\\projects\\genshin_app\\app.py', reloading
+2026-06-28 19:56:29,489 - werkzeug - INFO -  * Restarting with stat
+2026-06-28 19:56:30,284 - werkzeug - WARNING -  * Debugger is active!
+2026-06-28 19:56:30,288 - werkzeug - INFO -  * Debugger PIN: 136-212-548
+2026-06-28 19:56:38,053 - werkzeug - INFO -  * Detected change in '\\\\wsl.localhost\\Ubuntu\\home\\saine\\projects\\genshin_app\\app.py', reloading
+2026-06-28 19:56:38,100 - werkzeug - INFO -  * Restarting with stat
+2026-06-28 19:56:38,815 - werkzeug - WARNING -  * Debugger is active!
+2026-06-28 19:56:38,820 - werkzeug - INFO -  * Debugger PIN: 136-212-548
+2026-06-28 19:57:46,329 - werkzeug - INFO -  * Detected change in '\\\\wsl.localhost\\Ubuntu\\home\\saine\\projects\\genshin_app\\app.py', reloading
+2026-06-28 19:57:46,383 - werkzeug - INFO -  * Restarting with stat
+2026-06-28 19:57:47,633 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-06-28 19:57:47,634 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-06-28 19:57:47,636 - werkzeug - INFO -  * Restarting with stat
+2026-06-28 19:57:48,451 - werkzeug - WARNING -  * Debugger is active!
+2026-06-28 19:57:48,455 - werkzeug - INFO -  * Debugger PIN: 136-212-548
+2026-06-28 19:57:48,560 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 19:57:48] "GET / HTTP/1.1" 200 -
+2026-06-28 19:57:51,847 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 19:57:52,048 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 19:57:52] "POST /characters/view HTTP/1.1" 200 -
+2026-06-28 19:58:06,382 - enka_client - ERROR - enka.network responded with an error: 404 Client Error: Not Found for url: https://enka.network/api/uid//
+2026-06-28 19:58:06,386 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 19:58:06] "POST /characters/view HTTP/1.1" 200 -
+2026-06-28 20:00:00,061 - werkzeug - INFO -  * Detected change in '\\\\wsl.localhost\\Ubuntu\\home\\saine\\projects\\genshin_app\\app.py', reloading
+2026-06-28 20:00:00,111 - werkzeug - INFO -  * Restarting with stat
+2026-06-28 20:00:00,841 - werkzeug - WARNING -  * Debugger is active!
+2026-06-28 20:00:00,845 - werkzeug - INFO -  * Debugger PIN: 136-212-548
+2026-06-28 20:00:22,111 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 20:00:22] "[33mPOST /characters/view HTTP/1.1[0m" 404 -
+2026-06-28 20:01:21,723 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-06-28 20:01:21,724 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-06-28 20:01:21,727 - werkzeug - INFO -  * Restarting with stat
+2026-06-28 20:01:22,482 - werkzeug - WARNING -  * Debugger is active!
+2026-06-28 20:01:22,486 - werkzeug - INFO -  * Debugger PIN: 136-212-548
+2026-06-28 20:01:22,583 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 20:01:22] "GET / HTTP/1.1" 200 -
+2026-06-28 20:01:37,613 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 20:01:37] "[33mPOST /characters/view HTTP/1.1[0m" 404 -
+2026-06-28 20:02:53,946 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-06-28 20:02:53,946 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-06-28 20:02:53,950 - werkzeug - INFO -  * Restarting with stat
+2026-06-28 20:02:54,736 - werkzeug - WARNING -  * Debugger is active!
+2026-06-28 20:02:54,740 - werkzeug - INFO -  * Debugger PIN: 136-212-548
+2026-06-28 20:02:55,209 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 20:02:55] "[33mPOST /characters/view HTTP/1.1[0m" 404 -
+2026-06-28 20:02:58,355 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 20:02:58] "[33mGET /characte HTTP/1.1[0m" 404 -
+2026-06-28 20:03:01,066 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 20:03:01] "[33mGET /characte HTTP/1.1[0m" 404 -
+2026-06-28 20:03:04,019 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 20:03:04] "[33mGET /characters/view HTTP/1.1[0m" 404 -
+2026-06-28 20:03:06,606 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 20:03:06] "[33mGET /character HTTP/1.1[0m" 404 -
+2026-06-28 20:03:09,986 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 20:03:09] "GET /characters HTTP/1.1" 200 -
+2026-06-28 20:05:08,426 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-06-28 20:05:08,426 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-06-28 20:05:08,428 - werkzeug - INFO -  * Restarting with stat
+2026-06-28 20:05:09,218 - werkzeug - WARNING -  * Debugger is active!
+2026-06-28 20:05:09,222 - werkzeug - INFO -  * Debugger PIN: 136-212-548
+2026-06-28 20:05:09,707 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 20:05:09] "[32mGET /characters HTTP/1.1[0m" 302 -
+2026-06-28 20:05:09,717 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 20:05:09] "GET / HTTP/1.1" 200 -
+2026-06-28 20:05:14,349 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 20:05:14] "[32mGET /characters HTTP/1.1[0m" 302 -
+2026-06-28 20:05:14,355 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 20:05:14] "GET / HTTP/1.1" 200 -
