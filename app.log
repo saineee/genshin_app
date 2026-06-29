@@ -505,3 +505,61 @@ DETAIL:  Key (uid, avatar_id)=(608344004, 10000089) already exists.
 2026-06-28 21:21:28,567 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:21:28] "POST /characters HTTP/1.1" 200 -
 2026-06-28 21:21:48,859 - enka_client - INFO - Successfully fetched player data for UID: 685000675
 2026-06-28 21:21:48,998 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:21:48] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:23:46,452 - werkzeug - INFO -  * Detected change in '\\\\wsl.localhost\\Ubuntu\\home\\saine\\projects\\genshin_app\\app.py', reloading
+2026-06-28 21:23:46,525 - werkzeug - INFO -  * Restarting with stat
+2026-06-28 21:23:47,578 - werkzeug - WARNING -  * Debugger is active!
+2026-06-28 21:23:47,581 - werkzeug - INFO -  * Debugger PIN: 136-212-548
+2026-06-28 21:24:13,904 - werkzeug - INFO -  * Detected change in '\\\\wsl.localhost\\Ubuntu\\home\\saine\\projects\\genshin_app\\app.py', reloading
+2026-06-28 21:24:14,013 - werkzeug - INFO -  * Restarting with stat
+2026-06-28 21:24:15,050 - werkzeug - WARNING -  * Debugger is active!
+2026-06-28 21:24:15,055 - werkzeug - INFO -  * Debugger PIN: 136-212-548
+2026-06-28 21:24:45,673 - werkzeug - INFO -  * Detected change in '\\\\wsl.localhost\\Ubuntu\\home\\saine\\projects\\genshin_app\\app.py', reloading
+2026-06-28 21:24:45,762 - werkzeug - INFO -  * Restarting with stat
+2026-06-28 21:24:46,830 - werkzeug - WARNING -  * Debugger is active!
+2026-06-28 21:24:46,833 - werkzeug - INFO -  * Debugger PIN: 136-212-548
+2026-06-28 21:24:54,623 - werkzeug - INFO -  * Detected change in '\\\\wsl.localhost\\Ubuntu\\home\\saine\\projects\\genshin_app\\app.py', reloading
+2026-06-28 21:24:54,697 - werkzeug - INFO -  * Restarting with stat
+2026-06-28 21:24:55,780 - werkzeug - WARNING -  * Debugger is active!
+2026-06-28 21:24:55,782 - werkzeug - INFO -  * Debugger PIN: 136-212-548
+2026-06-28 21:25:03,554 - werkzeug - INFO -  * Detected change in '\\\\wsl.localhost\\Ubuntu\\home\\saine\\projects\\genshin_app\\app.py', reloading
+2026-06-28 21:25:03,629 - werkzeug - INFO -  * Restarting with stat
+2026-06-28 21:25:04,694 - werkzeug - WARNING -  * Debugger is active!
+2026-06-28 21:25:04,698 - werkzeug - INFO -  * Debugger PIN: 136-212-548
+2026-06-28 21:26:04,425 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:26:04,589 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:26:04] "[35m[1mPOST /characters HTTP/1.1[0m" 500 -
+2026-06-28 21:26:04,696 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:26:04] "[36mGET /characters?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2026-06-28 21:26:04,697 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:26:04] "[36mGET /characters?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2026-06-28 21:26:04,728 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:26:04] "GET /characters?__debugger__=yes&cmd=resource&f=console.png&s=5Z7S67v5B4jbacKFS0d3 HTTP/1.1" 200 -
+2026-06-28 21:26:04,822 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:26:04] "[36mGET /characters?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2026-06-28 21:26:40,584 - werkzeug - INFO -  * Detected change in '\\\\wsl.localhost\\Ubuntu\\home\\saine\\projects\\genshin_app\\app.py', reloading
+2026-06-28 21:26:40,659 - werkzeug - INFO -  * Restarting with stat
+2026-06-28 21:26:41,714 - werkzeug - WARNING -  * Debugger is active!
+2026-06-28 21:26:41,719 - werkzeug - INFO -  * Debugger PIN: 136-212-548
+2026-06-28 21:26:42,599 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:26:42,761 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:26:42] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:26:46,274 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-06-28 21:26:46,274 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-06-28 21:26:46,278 - werkzeug - INFO -  * Restarting with stat
+2026-06-28 21:26:47,358 - werkzeug - WARNING -  * Debugger is active!
+2026-06-28 21:26:47,362 - werkzeug - INFO -  * Debugger PIN: 136-212-548
+2026-06-28 21:26:48,306 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:26:48,470 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:26:48] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:27:48,719 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:27:48,886 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:27:48] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:27:54,248 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:27:54,343 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:27:54] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:27:56,334 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:27:56,477 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:27:56] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:28:26,573 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:28:26,752 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:28:26] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:29:06,121 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:29:06,267 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:29:06] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:29:29,142 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:29:29,232 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:29:29] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:29:46,326 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:29:46,463 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:29:46] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:29:50,901 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:29:51,032 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:29:51] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:29:52,773 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:29:52,857 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:29:52] "POST /characters HTTP/1.1" 200 -
