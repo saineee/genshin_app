@@ -8,6 +8,9 @@ from optimizer import optimize
 from parsers import parse_character, parse_artifacts
 from db_ops import insert_character, insert_artifact, upsert_character, upsert_artifact
 from requests.exceptions import Timeout, ConnectionError, HTTPError
+from db import Base, engine
+
+Base.metadata.create_all(engine)
 
 app = Flask(__name__)
 

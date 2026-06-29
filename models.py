@@ -1,11 +1,13 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from db import Base
 from sqlalchemy.orm import relationship
+from sqlalchemy import UniqueConstraint
 
 
 # Define Character class, connects to the character table in postgre
 class Character(Base):
     __tablename__ = "characters"
+    __table_args__ = (UniqueConstraint("uid", "avatar_id"),)
 
     artifacts = relationship("Artifact")
     id = Column(Integer, primary_key=True)
