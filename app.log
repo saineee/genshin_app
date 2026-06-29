@@ -563,3 +563,57 @@ DETAIL:  Key (uid, avatar_id)=(608344004, 10000089) already exists.
 2026-06-28 21:29:51,032 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:29:51] "POST /characters HTTP/1.1" 200 -
 2026-06-28 21:29:52,773 - enka_client - INFO - Successfully fetched player data for UID: 685000675
 2026-06-28 21:29:52,857 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:29:52] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:30:13,658 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:30:13,830 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:30:13] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:30:15,926 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:30:16,035 - db_ops - ERROR - Error upserting character: (psycopg2.InterfaceError) cursor already closed
+(Background on this error at: https://sqlalche.me/e/20/rvf5)
+2026-06-28 21:30:16,066 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:30:16] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:33:42,430 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:33:42] "[33mGET /None HTTP/1.1[0m" 404 -
+2026-06-28 21:33:50,272 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:33:50,366 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:33:50] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:34:15,296 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:34:15,386 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:34:15] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:34:17,270 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:34:17,356 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:34:17] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:34:24,247 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:34:24,339 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:34:24] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:34:28,082 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:34:28,169 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:34:28] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:34:31,038 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:34:31,122 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:34:31] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:34:32,383 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:34:32,540 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:34:32] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:34:34,151 - enka_client - INFO - Successfully fetched player data for UID: 685000675
+2026-06-28 21:34:34,294 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:34:34] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:42:21,612 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-06-28 21:42:21,613 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-06-28 21:42:21,616 - werkzeug - INFO -  * Restarting with stat
+2026-06-28 21:42:22,704 - werkzeug - WARNING -  * Debugger is active!
+2026-06-28 21:42:22,707 - werkzeug - INFO -  * Debugger PIN: 136-212-548
+2026-06-28 21:42:35,799 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:42:35] "GET / HTTP/1.1" 200 -
+2026-06-28 21:43:23,041 - enka_client - INFO - Successfully fetched player data for UID: 608344004
+2026-06-28 21:43:23,194 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:43:23] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:43:30,373 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:43:30] "[33mGET /None HTTP/1.1[0m" 404 -
+2026-06-28 21:43:40,106 - enka_client - INFO - Successfully fetched player data for UID: 608344004
+2026-06-28 21:43:40,259 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:43:40] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:43:52,930 - enka_client - INFO - Successfully fetched player data for UID: 602838222
+2026-06-28 21:43:53,006 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:43:53] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:44:05,394 - enka_client - ERROR - enka.network responded with an error: 404 Client Error: Not Found for url: https://enka.network/api/uid/670238222
+2026-06-28 21:44:05,396 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:44:05] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:44:12,397 - enka_client - ERROR - enka.network took too long to respond: HTTPSConnectionPool(host='enka.network', port=443): Read timed out. (read timeout=10)
+2026-06-28 21:44:12,398 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:44:12] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:44:21,449 - enka_client - INFO - Successfully fetched player data for UID: 608900234
+2026-06-28 21:44:21,514 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:44:21] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:44:29,765 - enka_client - INFO - Successfully fetched player data for UID: 601002564
+2026-06-28 21:44:29,769 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:44:29] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:44:49,715 - enka_client - INFO - Successfully fetched player data for UID: 606910073
+2026-06-28 21:44:49,719 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:44:49] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:45:00,080 - enka_client - INFO - Successfully fetched player data for UID: 601789706
+2026-06-28 21:45:00,134 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:45:00] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:45:56,563 - enka_client - INFO - Successfully fetched player data for UID: 701464050
+2026-06-28 21:45:56,641 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:45:56] "POST /characters HTTP/1.1" 200 -
+2026-06-28 21:46:03,271 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:46:03] "[33mGET /None HTTP/1.1[0m" 404 -
+2026-06-28 21:46:07,914 - enka_client - INFO - Successfully fetched player data for UID: 701464050
+2026-06-28 21:46:08,008 - werkzeug - INFO - 127.0.0.1 - - [28/Jun/2026 21:46:08] "POST /characters HTTP/1.1" 200 -
