@@ -5,8 +5,14 @@ services:
     environment:
     - DATABASE_URL=postgresql://paul:7285@db:5432/genshindb
     depends_on:
-      - db
+      db:
+        condition: service_healthy
   db:
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U paul -d genshindb" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     image: postgres:15
     environment:
     - POSTGRES_USER=paul
