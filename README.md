@@ -78,3 +78,7 @@ docker compose up --build
 ### Optimizer
 
 ![Optimizer](screenshots/optimizer.png)
+
+## Planned Improvements
+
+- CI/CD pipeline via GitHub Actions (automated testing and deployment to AWS ECS)
