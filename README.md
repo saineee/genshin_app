@@ -49,11 +49,13 @@ git clone https://github.com/saineee/genshin_app.git
 cd genshin_app
 ```
 
-2. Create a `.env` file in the project root
+2. Create a `.env` file in the project root with your own credentials
 
 ```env
-DATABASE_URL=postgresql://user:password@db:5432/dbname
+DATABASE_URL=postgresql://your_user:your_password@db:5432/your_dbname
 ```
+
+> The your_user, your_password, and your_dbname can be anything. Docker will create the database using these credentials on first run.
 
 3. Run with Docker
 
