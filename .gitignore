@@ -3,4 +3,5 @@ __pycache__/
 *.pyc
 .env
 aws/
-awsclive2.zip
+awsclive2.zipidea/
+.idea/
