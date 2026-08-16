@@ -3,5 +3,6 @@ __pycache__/
 *.pyc
 .env
 aws/
-awsclive2.zipidea/
+awscliv2.zip
 .idea/
+app.log
