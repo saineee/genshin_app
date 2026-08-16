@@ -24,6 +24,7 @@ around a game I actually care about.
 - PostgreSQL persistence, all data stored across sessions
 - Pydantic validation on all incoming API data
 - Deployed on AWS ECS with RDS PostgreSQL backend
+- Automated CI/CD pipeline, tested and deployed on every merge to master
 
 ## Tech Stack
 
@@ -39,6 +40,27 @@ around a game I actually care about.
   hosts the production database. No server management required.
 - **pytest**: unit tests covering parsers and schema validation to catch bad API data early.
 - **Jinja2**: server-side templating for dynamic rendering of character and artifact data.
+- **GitHub Actions**: runs the tests on every pull request and ships the app to ECS when a branch merges into master. It
+  logs into AWS with OIDC, so there are no AWS keys sitting in the repo or in GitHub secrets.
+
+## CI/CD
+
+Merging to `master` ships the app on its own. There are no manual steps and nothing to click.
+
+1. **Test**: pytest runs first. If it fails, nothing else happens.
+2. **Authenticate**: the runner asks GitHub for a signed token and trades it to AWS for credentials that expire in an
+   hour. Nothing long-lived gets stored anywhere.
+3. **Build and push**: the image goes up to ECR tagged with the commit SHA, so I can always tell exactly which code is
+   running in a container.
+4. **Deploy**: it pulls the live task definition, swaps in the new image, registers it as a new revision, and points the
+   service at it. Then it waits for ECS to actually finish the rollout, so a green check means the new version is
+   running and not just requested.
+
+Pull requests only run the tests. The deploy job is skipped, and the AWS trust policy will not accept a token from
+anything but master, so an unmerged branch cannot reach AWS even if it tried. The role it does assume can only push to
+this one ECR repo and update this one ECS service.
+
+Nothing gets to master without a pull request and a passing test run.
 
 ## Running Locally
 
@@ -79,6 +101,24 @@ docker compose up --build
 
 ![Optimizer](screenshots/optimizer.png)
 
+## Cost
+
+All of it runs in us-east-1 and costs about $13 a month right now.
+
+Fargate is most of that, roughly $9 for a 0.25 vCPU task with 0.5 GB of memory running 24/7. The public IP on the task
+is another $3.65. ECR storage costs almost nothing right now, but it will grow, since every merge pushes another image.
+The database is a db.t3.micro with 20 GB, which would run about $15 on its own but is free for the first year, so the
+real bill lands closer to $28 once that runs out.
+
+If this ever got real traffic, the first things I would change are a lifecycle policy on ECR so old images stop
+stacking up, a load balancer in front of the task instead of giving it a public IP, and a schedule that shuts the
+service down overnight, since nobody is looking up their artifacts at 4am.
+
 ## Planned Improvements
 
-- CI/CD pipeline via GitHub Actions (automated testing and deployment to AWS ECS)
+- Terraform to manage the AWS infrastructure as code
+- ECS health checks and deployment rollback in case of a bad deploy
+
+## License
+
+MIT, see [LICENSE](LICENSE).
