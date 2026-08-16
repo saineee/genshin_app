@@ -25,4 +25,4 @@ jobs:
           aws-region: 'us-east-1'
           role-to-assume: 'arn:aws:iam::330866750121:role/GHAuth'
       - run: aws sts get-caller-identity
-      - if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master'
