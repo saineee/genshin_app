@@ -6,3 +6,7 @@ aws/
 awscliv2.zip
 .idea/
 app.log
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
