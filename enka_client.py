@@ -10,7 +10,6 @@ def fetch_player_data(uid):
     url = f"https://enka.network/api/uid/{uid}/"
     headers = {"User-Agent": "genshin-build-tracker/1.0 (project)"}
     try:
-        # API call
         response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
         data = response.json()

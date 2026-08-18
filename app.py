@@ -6,7 +6,7 @@ from sqlalchemy import select
 from enka_client import fetch_player_data
 from optimizer import optimize
 from parsers import parse_character, parse_artifacts
-from db_ops import insert_character, insert_artifact, upsert_character, upsert_artifact
+from db_ops import upsert_character, upsert_artifact
 from requests.exceptions import Timeout, ConnectionError, HTTPError
 from db import Base, engine
 

@@ -1,4 +1,3 @@
-# Individual stat key
 STAT_KEYS = {
     "hp": "2000",
     "atk": "2001",
