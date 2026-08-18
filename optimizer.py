@@ -1,9 +1,6 @@
 import pandas as pd
-from select import select
 
-from db import Session
 from db_ops import retrieve_artifact, get_character
-from models import Character
 
 BUILD_WEIGHTS = {
     "crit_atk": {"Crit Rate": 2, "Crit DMG": 1, "ATK%": 0.75, "Flat ATK": .15},
@@ -37,10 +34,6 @@ VALID_MAIN_STATS = {
 }
 
 
-def build_dataframe(artifacts):
-    return pd.DataFrame(artifacts)
-
-
 def get_artifacts_df(session, uid):
     result = retrieve_artifact(session, uid)
     artifacts = [{
@@ -57,23 +50,9 @@ def get_artifacts_df(session, uid):
         "sub4": artifact.sub4,
         "sub4_val": artifact.sub4_val}
         for artifact in result]
-    return build_dataframe(artifacts)
+    return pd.DataFrame(artifacts)
 
 
-# calculate individual score according to weighted stat values
-def individual_score(artifact, weights):
-    score = 0
-    subs = [(artifact["sub1"], artifact["sub1_val"]),
-            (artifact["sub2"], artifact["sub2_val"]),
-            (artifact["sub3"], artifact["sub3_val"]),
-            (artifact["sub4"], artifact["sub4_val"])]
-    for sub_slot, sub_val in subs:
-        if sub_slot in weights:
-            score += weights[sub_slot] * sub_val
-    return score
-
-
-# combines all weighted substats into a score value per artifact, for specified build type
 def score_artifacts(artifacts, build_type):
     build_weights = BUILD_WEIGHTS[build_type]
 

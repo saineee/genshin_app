@@ -12,15 +12,13 @@ log = logging.getLogger(__name__)
 
 if __name__ == "__main__":
     
-    # Test uid
     uid = sys.argv[1]
-    # Create session object
     session = Session()
 
     player_data = fetch_player_data(uid)
     for character in player_data['avatarInfoList']:
         char_data = parse_character(character, uid)
-        try:  # make sure parsed data matches character model schema
+        try:
             CharacterSchema(**char_data)
         except ValidationError as e:
             log.error(f"Character has wrong schema: {e}")
@@ -30,7 +28,7 @@ if __name__ == "__main__":
             continue
         all_artifact_data = parse_artifacts(character)
         for artifact in all_artifact_data:
-            try:  # make sure parsed data matches character model schema
+            try:
                 ArtifactSchema(**artifact)
             except ValidationError as e:
                 log.error(f"Artifact has wrong schema: {e}")
