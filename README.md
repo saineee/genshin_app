@@ -103,16 +103,15 @@ docker compose up --build
 
 ## Cost
 
-All of it runs in us-east-1 and costs about $13 a month right now.
+All of the infra runs in us-east-1 and costs about $13 monthly.
 
-Fargate is most of that, roughly $9 for a 0.25 vCPU task with 0.5 GB of memory running 24/7. The public IP on the task
-is another $3.65. ECR storage costs almost nothing right now, but it will grow, since every merge pushes another image.
-The database is a db.t3.micro with 20 GB, which would run about $15 on its own but is free for the first year, so the
-real bill lands closer to $28 once that runs out.
+Fargate is most of it, about $9 for a 0.25 vCPU task with 0.5 GB of memory running 24/7. The public IP on the task
+is another $3.65. ECR storage is almost nothing, and stays that way now that a lifecycle policy expires everything past
+the last ten images. The database is a db.t3.micro with 20 GB, which would run about $15 on its own but is free for the
+first year, so the real cost is closer to $28 once that runs out.
 
-If this ever got real traffic, the first things I would change are a lifecycle policy on ECR so old images stop
-stacking up, a load balancer in front of the task instead of giving it a public IP, and a schedule that shuts the
-service down overnight, since nobody is looking up their artifacts at 4am.
+If this ever got real traffic, the first things I would change are a load balancer in front of the task instead of
+giving it a public IP, and a schedule that shuts the service down overnight.
 
 ## Planned Improvements
 
