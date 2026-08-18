@@ -25,7 +25,6 @@ def insert_character(session, character_data):
         session.add(character)
         session.commit()
         return character.id
-    # check if character has already been inserted in database with same uid
     except IntegrityError as e:
         session.rollback()
         log.error(f"Duplicate character detected: {e}:")
@@ -118,7 +117,6 @@ def upsert_artifact(session, artifacts, character_id):
     session.commit()
 
 
-# retrieve uid associated artifacts for pandas optimizer
 def retrieve_artifact(session, uid):
     stmt = select(Artifact).join(Character).where(Character.uid == uid)
     result = session.execute(stmt)

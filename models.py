@@ -4,7 +4,6 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import UniqueConstraint
 
 
-# Define Character class, connects to the character table in postgre
 class Character(Base):
     __tablename__ = "characters"
     __table_args__ = (UniqueConstraint("uid", "avatar_id"),)
@@ -34,7 +33,6 @@ class Character(Base):
     icon_url = Column(String)
 
 
-# Define artifact class, connects to the artifact table in postgre
 class Artifact(Base):
     __tablename__ = "artifacts"
 
