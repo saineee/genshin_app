@@ -61,3 +61,54 @@ resource "aws_ecs_service" "genshin_service" {
     "subnet-0a9afdc166082a180", "subnet-0c87013b39a033a8c"]
   }
 }
+
+import {
+  to = aws_db_instance.genshin_db
+  id = "genshin-db"
+}
+
+resource "aws_db_instance" "genshin_db" {
+  allocated_storage                     = 20
+  auto_minor_version_upgrade            = true
+  availability_zone                     = "us-east-1c"
+  backup_retention_period               = 1
+  backup_target                         = "region"
+  backup_window                         = "09:01-09:31"
+  ca_cert_identifier                    = "rds-ca-rsa2048-g1"
+  copy_tags_to_snapshot                 = false
+  customer_owned_ip_enabled             = false
+  database_insights_mode                = "standard"
+  db_name                               = "genshindb"
+  db_subnet_group_name                  = "default"
+  dedicated_log_volume                  = false
+  delete_automated_backups              = true
+  deletion_protection                   = false
+  enabled_cloudwatch_logs_exports       = []
+  engine                                = "postgres"
+  engine_lifecycle_support              = "open-source-rds-extended-support"
+  engine_version                        = "15.17"
+  iam_database_authentication_enabled   = false
+  identifier                            = "genshin-db"
+  instance_class                        = "db.t3.micro"
+  iops                                  = 0
+  license_model                         = "postgresql-license"
+  maintenance_window                    = "tue:04:29-tue:04:59"
+  max_allocated_storage                 = 0
+  monitoring_interval                   = 0
+  multi_az                              = false
+  network_type                          = "IPV4"
+  option_group_name                     = "default:postgres-15"
+  parameter_group_name                  = "default.postgres15"
+  performance_insights_enabled          = false
+  performance_insights_retention_period = 0
+  port                                  = 5432
+  publicly_accessible                   = true
+  region                                = "us-east-1"
+  skip_final_snapshot                   = true
+  storage_encrypted                     = false
+  storage_throughput                    = 0
+  storage_type                          = "gp2"
+  tags                                  = {}
+  username                              = "paul"
+  vpc_security_group_ids                = ["sg-028c4c4d1cc2cb8d6"]
+}
