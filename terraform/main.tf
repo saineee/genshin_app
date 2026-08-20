@@ -112,3 +112,13 @@ resource "aws_db_instance" "genshin_db" {
   username                              = "paul"
   vpc_security_group_ids                = ["sg-028c4c4d1cc2cb8d6"]
 }
+
+import {
+  to = aws_iam_role.ghauth
+  id = "GHAuth"
+}
+
+import {
+  to = aws_iam_role_policy.ghauthpolicy
+  id = "GHAuth:CDforGenshin"
+}
