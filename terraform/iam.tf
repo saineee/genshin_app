@@ -9,7 +9,7 @@ resource "aws_iam_role_policy" "ghauthpolicy" {
       }, {
       Action   = ["ecr:BatchCheckLayerAvailability", "ecr:InitiateLayerUpload", "ecr:UploadLayerPart", "ecr:CompleteLayerUpload", "ecr:PutImage"]
       Effect   = "Allow"
-      Resource = ["arn:aws:ecr:us-east-1:330866750121:repository/genshin-app"]
+      Resource = ["arn:aws:ecr:${var.region}:${data.aws_caller_identity.current.account_id}:repository/genshin-app"]
       Sid      = "ecrUpload"
       }, {
       Action   = ["ecs:RegisterTaskDefinition", "ecs:DescribeTaskDefinition"]
@@ -19,7 +19,7 @@ resource "aws_iam_role_policy" "ghauthpolicy" {
       }, {
       Action   = ["ecs:UpdateService", "ecs:DescribeServices"]
       Effect   = "Allow"
-      Resource = ["arn:aws:ecs:us-east-1:330866750121:service/genshin-cluster/genshin-service"]
+      Resource = ["arn:aws:ecs:${var.region}:${data.aws_caller_identity.current.account_id}:service/genshin-cluster/genshin-service"]
       Sid      = "ecsServiceTasks"
       }, {
       Action = ["iam:PassRole"]
@@ -29,7 +29,7 @@ resource "aws_iam_role_policy" "ghauthpolicy" {
         }
       }
       Effect   = "Allow"
-      Resource = "arn:aws:iam::330866750121:role/ecsTaskExecutionRole"
+      Resource = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/ecsTaskExecutionRole"
       Sid      = "ecsExecRole"
     }]
     Version = "2012-10-17"
@@ -49,7 +49,7 @@ resource "aws_iam_role" "ghauth" {
       }
       Effect = "Allow"
       Principal = {
-        Federated = "arn:aws:iam::330866750121:oidc-provider/token.actions.githubusercontent.com"
+        Federated = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/token.actions.githubusercontent.com"
       }
       Sid = "GHAuth"
     }]
