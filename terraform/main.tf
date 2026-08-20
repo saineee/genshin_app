@@ -66,7 +66,7 @@ resource "aws_ecs_service" "genshin_service" {
   }
   network_configuration {
     assign_public_ip = true
-    security_groups  = ["sg-028c4c4d1cc2cb8d6"]
+    security_groups  = [aws_security_group.genshin_app_sg.id]
     subnets = ["subnet-0677cf7ea85b8aa54",
     "subnet-0a9afdc166082a180", "subnet-0c87013b39a033a8c"]
   }
@@ -120,7 +120,7 @@ resource "aws_db_instance" "genshin_db" {
   storage_type                          = "gp2"
   tags                                  = {}
   username                              = "paul"
-  vpc_security_group_ids                = ["sg-028c4c4d1cc2cb8d6"]
+  vpc_security_group_ids                = [aws_security_group.genshin_rds_sg.id]
 }
 
 import {
