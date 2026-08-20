@@ -14,8 +14,18 @@ terraform {
     }
   }
 }
+data "aws_caller_identity" "current" {}
+
+output "account_id" {
+  value = data.aws_caller_identity.current.account_id
+}
+
+variable "region" {
+  type    = string
+  default = "us-east-1"
+}
 provider "aws" {
-  region              = "us-east-1"
+  region              = var.region
   allowed_account_ids = ["330866750121"]
 }
 
@@ -82,7 +92,7 @@ resource "aws_db_instance" "genshin_db" {
   db_subnet_group_name                  = "default"
   dedicated_log_volume                  = false
   delete_automated_backups              = true
-  deletion_protection                   = false
+  deletion_protection                   = true
   enabled_cloudwatch_logs_exports       = []
   engine                                = "postgres"
   engine_lifecycle_support              = "open-source-rds-extended-support"
@@ -103,7 +113,7 @@ resource "aws_db_instance" "genshin_db" {
   performance_insights_retention_period = 0
   port                                  = 5432
   publicly_accessible                   = true
-  region                                = "us-east-1"
+  region                                = var.region
   skip_final_snapshot                   = true
   storage_encrypted                     = false
   storage_throughput                    = 0
