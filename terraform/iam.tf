@@ -58,3 +58,38 @@ resource "aws_iam_role" "ghauth" {
   force_detach_policies = false
   name                  = "GHAuth"
 }
+
+resource "aws_iam_role" "genshin_task_exec_role" {
+  name = "genshin-task-exec-role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Principal = {
+        Service = "ecs-tasks.amazonaws.com"
+      }
+      Sid = "GenshinExec"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "genshin_attach" {
+  role       = aws_iam_role.genshin_task_exec_role.id
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+resource "aws_iam_role_policy" "grab_from_ssm_genshin" {
+  name = "genshin_ssm_pull"
+  role = aws_iam_role.genshin_task_exec_role.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action   = "ssm:GetParameters"
+      Effect   = "Allow"
+      Sid      = "ssmGenshinPull"
+      Resource = "arn:aws:ssm:${var.region}:${data.aws_caller_identity.current.account_id}:parameter/genshin/*"
+    }]
+  })
+}
