@@ -121,7 +121,7 @@ resource "aws_db_instance" "genshin_db" {
   performance_insights_enabled          = false
   performance_insights_retention_period = 0
   port                                  = 5432
-  publicly_accessible                   = true
+  publicly_accessible                   = false
   region                                = var.region
   skip_final_snapshot                   = true
   storage_encrypted                     = false
