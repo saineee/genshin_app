@@ -54,6 +54,10 @@ import {
 resource "aws_ecs_service" "genshin_service" {
   name    = "genshin-service"
   cluster = aws_ecs_cluster.genshin_cluster.id
+  deployment_circuit_breaker {
+    enable   = true
+    rollback = true
+  }
   lifecycle {
     ignore_changes = [task_definition]
   }
@@ -70,6 +74,11 @@ resource "aws_ecs_service" "genshin_service" {
     subnets = ["subnet-0677cf7ea85b8aa54",
     "subnet-0a9afdc166082a180", "subnet-0c87013b39a033a8c"]
   }
+}
+
+resource "aws_cloudwatch_log_group" "genshin_logs" {
+  name              = "/ecs/genshin-task"
+  retention_in_days = 14
 }
 
 import {
