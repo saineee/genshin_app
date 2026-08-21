@@ -29,7 +29,7 @@ resource "aws_iam_role_policy" "ghauthpolicy" {
         }
       }
       Effect   = "Allow"
-      Resource = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/ecsTaskExecutionRole"
+      Resource = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/genshin-task-exec-role"
       Sid      = "ecsExecRole"
     }]
     Version = "2012-10-17"
