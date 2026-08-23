@@ -6,6 +6,28 @@ on:
       - master
   pull_request:
 jobs:
+  plan:
+    permissions:
+      id-token: write
+      contents: read
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform
+    env:
+      TF_VAR_db_password: 'unusedpassword'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: 'us-east-1'
+          role-to-assume: 'arn:aws:iam::330866750121:role/ciPlanRole'
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: '1.15.8'
+      - run: terraform init
+      - run: terraform plan -lock=false
+    if: github.event_name == 'pull_request'
   test:
     runs-on: ubuntu-latest
     steps:
