@@ -20,6 +20,9 @@ output "account_id" {
   value = data.aws_caller_identity.current.account_id
 }
 
+variable "db_password" {
+  sensitive = true
+}
 variable "region" {
   type    = string
   default = "us-east-1"
@@ -29,28 +32,14 @@ provider "aws" {
   allowed_account_ids = ["330866750121"]
 }
 
-import {
-  to = aws_ecr_repository.genshin_app
-  id = "genshin-app"
-}
-
 resource "aws_ecr_repository" "genshin_app" {
   name = "genshin-app"
-}
-
-import {
-  to = aws_ecs_cluster.genshin_cluster
-  id = "genshin-cluster"
 }
 
 resource "aws_ecs_cluster" "genshin_cluster" {
   name = "genshin-cluster"
 }
 
-import {
-  to = aws_ecs_service.genshin_service
-  id = "genshin-cluster/genshin-service"
-}
 resource "aws_ecs_service" "genshin_service" {
   name    = "genshin-service"
   cluster = aws_ecs_cluster.genshin_cluster.id
@@ -81,11 +70,6 @@ resource "aws_cloudwatch_log_group" "genshin_logs" {
   retention_in_days = 14
 }
 
-import {
-  to = aws_db_instance.genshin_db
-  id = "genshin-db"
-}
-
 resource "aws_db_instance" "genshin_db" {
   allocated_storage                     = 20
   auto_minor_version_upgrade            = true
@@ -102,6 +86,8 @@ resource "aws_db_instance" "genshin_db" {
   dedicated_log_volume                  = false
   delete_automated_backups              = true
   deletion_protection                   = true
+  password_wo                           = var.db_password
+  password_wo_version                   = 1
   enabled_cloudwatch_logs_exports       = []
   engine                                = "postgres"
   engine_lifecycle_support              = "open-source-rds-extended-support"
@@ -124,20 +110,10 @@ resource "aws_db_instance" "genshin_db" {
   publicly_accessible                   = false
   region                                = var.region
   skip_final_snapshot                   = true
-  storage_encrypted                     = false
+  storage_encrypted                     = true
   storage_throughput                    = 0
   storage_type                          = "gp2"
   tags                                  = {}
   username                              = "paul"
   vpc_security_group_ids                = [aws_security_group.genshin_rds_sg.id]
-}
-
-import {
-  to = aws_iam_role.ghauth
-  id = "GHAuth"
-}
-
-import {
-  to = aws_iam_role_policy.ghauthpolicy
-  id = "GHAuth:CDforGenshin"
 }
