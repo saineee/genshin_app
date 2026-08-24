@@ -2,6 +2,12 @@ name: Pipeline
 
 on:
   push:
+    paths-ignore:
+      - '**.md'
+      - 'docker-compose.yml'
+      - '.env.example'
+      - 'LICENSE'
+      - 'terraform/**'
     branches:
       - master
   pull_request:
