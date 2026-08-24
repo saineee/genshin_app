@@ -117,3 +117,21 @@ resource "aws_db_instance" "genshin_db" {
   username                              = "paul"
   vpc_security_group_ids                = [aws_security_group.genshin_rds_sg.id]
 }
+
+resource "aws_ecr_lifecycle_policy" "genshin_app" {
+  repository = aws_ecr_repository.genshin_app.name
+
+  policy = jsonencode({
+    rules = [{
+      rulePriority = 1
+      selection = {
+        tagStatus   = "any"
+        countType   = "imageCountMoreThan"
+        countNumber = 10
+      }
+      action = {
+        type = "expire"
+      }
+    }]
+  })
+}
