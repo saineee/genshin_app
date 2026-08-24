@@ -51,7 +51,7 @@ service redeploys. If the link is dead, the screenshots below are the same thing
 
 ## Infrastructure
 
-Fourteen resources in Terraform, with S3 remote state and native S3 locking. The state bucket was created by manually, 
+Fourteen resources in Terraform, with S3 remote state and native S3 locking. The state bucket was created manually,
 because Terraform cannot manage the bucket that stores its own state.
 
 Terraform doesn't own the task definition. The pipeline registers a new revision on every deploy, so if Terraform
