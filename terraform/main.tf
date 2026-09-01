@@ -85,7 +85,7 @@ resource "aws_db_instance" "genshin_db" {
   db_subnet_group_name                  = "default"
   dedicated_log_volume                  = false
   delete_automated_backups              = true
-  deletion_protection                   = true
+  deletion_protection                   = false
   password_wo                           = var.db_password
   password_wo_version                   = 1
   enabled_cloudwatch_logs_exports       = []
